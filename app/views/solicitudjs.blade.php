@@ -2,7 +2,7 @@
 $(document).ready(function () {
 
 
-	var fecha = document.getElementsByClassName("fecha");
+	var fecha = $('.fecha');
 	$(fecha).datetimepicker({
 		locale: 'es',
 		format: 'YYYY-MM-DD'
@@ -23,7 +23,8 @@ $(document).ready(function () {
 		var $tab = $('#myTabContent'), $active = $tab.find('.tab-pane.active');
 		tabid = $active.find('p:hidden').text();
 
-		var url 					= "http://localhost/visate/public/solicitud/update";
+		//var url 					= "http://localhost/visate/public/solicitud/update";
+		var url 					= "http://awsd4bb9323.bitnamiapp.com/visate/public/solicitud/update";
 		var $post 					= {};
 		$post.id 					= '{{$solicitud->id}}';
 		$post.consulado 			= $('[name="consulado"]').val();
