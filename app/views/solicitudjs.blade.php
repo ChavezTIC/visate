@@ -20,7 +20,8 @@ $(document).ready(function () {
 	var tabid;
 
 	sendToServer = function(){
-		var $tab = $('#myTabContent'), $active = $tab.find('.tab-pane.active');
+		var $tab = $('#myTabContent');
+		var $active = $tab.find('.tab-pane.active');
 		tabid = $active.find('p:hidden').text();
 
 		//var url 					= "http://localhost/visate/public/solicitud/update";
@@ -149,98 +150,100 @@ $(document).ready(function () {
 		return false;
 	}
 
-	alerta = function(){
-		alert('Datos Guardados '+tabid);
+	siguiente = function(){
+		window.scrollTo(0, 0);
+		tabid=parseInt(tabid)+1;
+		$('.nav-tabs a[href=#tab'+tabid+'primary]').tab('show');
 	}
 
 	$estado_civil.change(function () {
 
-		$('[class="informacion_pareja"]').hide();
+		$('.informacion_pareja').hide();
 
 		if ($estado_civil.val() != 'Soltero(a)') {
 
-			$('[class="informacion_pareja"]').show();
+			$('.informacion_pareja').show();
 		}
 	}).trigger('change');
 
 
 	$financiamiento.change(function () {
 
-		$('[class="financiamiento_alguien_mas"]').hide();
+		$('.financiamiento_alguien_mas').hide();
 
 		if ($financiamiento.val() == 'Alguien más') {
 
-			$('[class="financiamiento_alguien_mas"]').show();
+			$('.financiamiento_alguien_mas').show();
 		}
 	}).trigger('change');
 
 	$visitado.change(function () {
 
-		$('[class="visitado"]').hide();
+		$('.visitado').hide();
 
 		if ($visitado.val() == 'Sí') {
 
-			$('[class="visitado"]').show();
+			$('.visitado').show();
 		}
 	}).trigger('change');
 
 	$visa_anterior.change(function () {
 
-		$('[class="visa_anterior"]').hide();
+		$('.visa_anterior').hide();
 
 		if ($visa_anterior.val() == 'Sí') {
 
-			$('[class="visa_anterior"]').show();
+			$('.visa_anterior').show();
 		}
 	}).trigger('change');
 
 	$visa_perdida.change(function () {
 
-		$('[class="visa_perdida"]').hide();
+		$('.visa_perdida').hide();
 
 		if ($visa_perdida.val() == 'Sí') {
 
-			$('[class="visa_perdida"]').show();
+			$('.visa_perdida').show();
 		}
 	}).trigger('change');
 
 	$padre_encuentra.change(function () {
 
-		$('[class="padre_estatus"]').hide();
+		$('.padre_estatus').hide();
 
 		if ($padre_encuentra.val() == 'Sí') {
 
-			$('[class="padre_estatus"]').show();
+			$('.padre_estatus').show();
 		}
 	}).trigger('change');
 
 	$madre_encuentra.change(function () {
 
-		$('[class="madre_estatus"]').hide();
+		$('.madre_estatus').hide();
 
 		if ($madre_encuentra.val() == 'Sí') {
 
-			$('[class="madre_estatus"]').show();
+			$('.madre_estatus').show();
 		}
 	}).trigger('change');
 
 	$parientes.change(function () {
 
-		$('[class="pariente"]').hide();
+		$('.pariente').hide();
 
 		if ($parientes.val() == 'Sí') {
 
-			$('[class="pariente"]').show();
+			$('.pariente').show();
 		}
 	}).trigger('change');
 
 	$compania.change(function () {
 
-		$('[class="compania"]').hide();
+		$('.compania').hide();
 
 		if ($compania.val() == 'Sí') {
 
-			$('[class="compania"]').show();
+			$('.compania').show();
 		}
 	}).trigger('change');
 

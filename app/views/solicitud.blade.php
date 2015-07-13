@@ -147,7 +147,7 @@
 								</div>
 							</div>
 
-							<button onclick="sendToServer(),alerta()" class="btn btn-primary">Guardar</button>
+							<button onclick="sendToServer(),siguiente()" class="btn btn-primary">Guardar</button>
 						</div>
 
 
@@ -232,7 +232,7 @@
 									{{ Form::text('email', $solicitud->email, array('class' => 'form-control')) }}
 								</div>
 							</div>
-							<button onclick="sendToServer(),alerta()" class="btn btn-primary">Guardar</button>
+							<button onclick="sendToServer(),siguiente()" class="btn btn-primary">Guardar</button>
                         </div>
 
 
@@ -289,7 +289,7 @@
 								</div>
 							</div>
 
-							<button onclick="sendToServer(),alerta()" class="btn btn-primary">Guardar</button>
+							<button onclick="sendToServer(),siguiente()" class="btn btn-primary">Guardar</button>
 						</div>
 
 
@@ -356,7 +356,7 @@
 								</div>
 							</div>
 
-							<button onclick="sendToServer(),alerta()" class="btn btn-primary">Guardar</button>
+							<button onclick="sendToServer(),siguiente()" class="btn btn-primary">Guardar</button>
 						</div>
 
 
@@ -503,7 +503,7 @@
 								</div>
 
 							</div>
-							<button onclick="sendToServer(),alerta()" class="btn btn-primary">Guardar</button>
+							<button onclick="sendToServer(),siguiente()" class="btn btn-primary">Guardar</button>
 						</div>
 
 
@@ -678,7 +678,7 @@
 								</div>
 							</div>
 
-							<button onclick="sendToServer(),alerta()" class="btn btn-primary">Guardar</button>
+							<button onclick="sendToServer(),siguiente()" class="btn btn-primary">Guardar</button>
 						</div>
 
 
@@ -840,7 +840,7 @@
 							</div>
 
 
-							<button onclick="sendToServer(),alerta()" class="btn btn-primary">Guardar</button>
+							<button onclick="sendToServer(),siguiente()" class="btn btn-primary">Guardar</button>
 						</div>
 
 
@@ -907,7 +907,7 @@
 									</div>
 								</div>
 
-							<button onclick="sendToServer(),alerta()" class="btn btn-primary">Guardar</button>
+							<button onclick="sendToServer(),siguiente()" class="btn btn-primary">Guardar</button>
 						</div>
 
 
@@ -954,7 +954,7 @@
 								</div>
 
 
-							<button onclick="sendToServer(),alerta()" class="btn btn-primary">Guardar</button>
+							<button onclick="sendToServer(),siguiente()" class="btn btn-primary">Guardar</button>
 						</div>
 
 					</div>
