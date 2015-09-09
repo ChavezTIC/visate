@@ -10,11 +10,24 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+Route::get('login', 'HomeController@showLogin')->before('guest');
 
-Route::get('', 'SolicitudController@index');
+Route::post('login', 'HomeController@doLogin');
+
+Route::get('logout', 'HomeController@logout');
+
+
+Route::get('admin', 'AdminController@index')->before('auth');
+
+Route::get('admin/{codigo}', 'AdminController@solicitud')->before('auth');
+
+Route::delete('admin/delete/{id}', 'AdminController@destroy')->before('auth');
+
+
+Route::get('toForm', 'SolicitudController@toForm');
 
 Route::get('solicitud', 'SolicitudController@index');
 
-Route::get('solicitud/{id}', 'SolicitudController@show');
+//Route::get('solicitud/{codigo}', 'SolicitudController@showForm');
 
 Route::post('solicitud/update', 'SolicitudController@update');

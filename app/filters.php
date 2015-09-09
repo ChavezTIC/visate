@@ -37,7 +37,10 @@ Route::filter('auth', function()
 {
 	if (Auth::guest())
 	{
-		if (Request::ajax())
+		return Redirect::to('login')
+        ->with('message', 'Debes iniciar sesión para ver esta página');
+
+        if (Request::ajax())
 		{
 			return Response::make('Unauthorized', 401);
 		}
@@ -67,7 +70,9 @@ Route::filter('auth.basic', function()
 
 Route::filter('guest', function()
 {
-	if (Auth::check()) return Redirect::to('/');
+	if (Auth::check())
+		return Redirect::to('admin')
+		->with('message', 'Sesión iniciada');
 });
 
 /*
