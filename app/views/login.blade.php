@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>VISATE ADMIN</title>
   {{ HTML::style('assets/css/bootstrap.min.css') }}
-  {{ HTML::style('assets/css/style.css') }}
+  {{ HTML::style('assets/css/estilo.css') }}
 </head>
 <body>
   <h4 class="tituloLogin">Acceso</h4>

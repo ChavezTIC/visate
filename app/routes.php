@@ -28,6 +28,26 @@ Route::get('toForm', 'SolicitudController@toForm');
 
 Route::get('solicitud', 'SolicitudController@index');
 
+Route::post('solicitud/editar', 'SolicitudController@editar');
+
 //Route::get('solicitud/{codigo}', 'SolicitudController@showForm');
 
-Route::post('solicitud/update', 'SolicitudController@update');
+Route::post('solicitud/update1', 'SolicitudController@updatePrincipal');
+
+Route::post('solicitud/update2', 'SolicitudController@updateContacto');
+
+Route::post('solicitud/update3', 'SolicitudController@updatePasaporte');
+
+Route::post('solicitud/update4', 'SolicitudController@updateFinanciamiento');
+
+Route::post('solicitud/update5', 'SolicitudController@updateUltimaVisita');
+
+Route::post('solicitud/update6', 'SolicitudController@updateVisita');
+
+Route::post('solicitud/update7', 'SolicitudController@updateFamilia');
+
+Route::post('solicitud/update8', 'SolicitudController@updateOcupacion');
+
+Route::post('solicitud/update9', 'SolicitudController@updateSeguridad');
+
+Route::get('final', 'SolicitudController@postSolicitud');

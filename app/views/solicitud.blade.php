@@ -1,6 +1,5 @@
 @extends('layout')
 @section('content')
-<link rel="shortcut icon" href="assets/images/favicon.ico?v=2" />
 <div class="container">
 	<div class="page-header">
 		<h1>Solicitud de Visa<span class="pull-right label label-default">ID = {{$solicitud->codigo_formulario}} </span></h1>
@@ -10,27 +9,27 @@
 			<div class="panel with-nav-tabs panel-primary">
 				<div class="panel-heading">
 					<ul class="nav nav-tabs id="sampleTabs"">
-						<li class="active"><a href="#tab1primary" data-toggle="tab" onclick="sendToServer()">Principal</a></li>
-						<li><a href="#tab2primary" data-toggle="tab" onclick="sendToServer()">Datos de contacto</a></li>
-						<li><a href="#tab3primary" data-toggle="tab" onclick="sendToServer()">Pasaporte</a></li>
-						<li><a href="#tab4primary" data-toggle="tab" onclick="sendToServer()">Financiamiento</a></li>
-						<li><a href="#tab5primary" data-toggle="tab" onclick="sendToServer()">Última visita</a></li>
-						<li><a href="#tab6primary" data-toggle="tab" onclick="sendToServer()">Visita</a></li>
-						<li><a href="#tab7primary" data-toggle="tab" onclick="sendToServer()">Familia</a></li>
-						<li><a href="#tab8primary" data-toggle="tab" onclick="sendToServer()">Ocupación</a></li>
-						<li><a href="#tab9primary" data-toggle="tab" onclick="sendToServer()">Acompañante</a></li>
-						<li><a href="#tab10primary" data-toggle="tab" onclick="sendToServer()">Seguridad</a></li>
+						<li class="active"><a href="#tab1primary" data-toggle="tab" class="tab1 moverTab">Principal</a></li>
+						<li class="disabled"><a href="#tab2primary" class="tab2 moverTab">Datos de contacto</a></li>
+						<li class="disabled"><a href="#tab3primary" class="tab3 moverTab">Pasaporte</a></li>
+						<li class="disabled"><a href="#tab4primary" class="tab4 moverTab">Financiamiento</a></li>
+						<li class="disabled"><a href="#tab5primary" class="tab5 moverTab">Última visita</a></li>
+						<li class="disabled"><a href="#tab6primary" class="tab6 moverTab">Visita</a></li>
+						<li class="disabled"><a href="#tab7primary" class="tab7 moverTab">Familia</a></li>
+						<li class="disabled"><a href="#tab8primary" class="tab8 moverTab">Ocupación</a></li>
+						<li class="disabled"><a href="#tab9primary" class="tab9 moverTab">Seguridad</a></li>
 					</ul>
 				</div>
 				<div class="panel-body">
 					<div id="myTabContent" class="tab-content">
 
-						<!--{{ Form::open(array('id'=>'formulario_solicitud')) }}-->
-
-						{{ Form::hidden('id_solicitud', $solicitud->id, array('id' => 'id_solicitud')) }}
 
 						<div class="tab-pane fade in active" id="tab1primary">
 							<p style="display: none">1</p>
+
+							{{ Form::model($solicitud, ['method' => 'POST','id' => 'formulario_1', 'files' => true]) }}
+
+							{{ Form::hidden('id_solicitud', $solicitud->id) }}
 
 							<div class="form-group row">
 								{{ Form::label('consulado', 'Consulado donde desea realizar su cita', array('class' => 'col-md-7 control-label')) }}
@@ -62,7 +61,7 @@
 							<div class="form-group row">
 								{{ Form::label('apellidos', 'Apellidos del solicitante', array('class' => 'col-md-7 control-label')) }}
 								<div class="col-md-6">
-									{{ Form::text('apellidos', $solicitud->apellidos, array('class' => 'form-control')) }}
+									{{ Form::text('apellidos', $solicitud->apellidos, array('class' => 'form-control', 'required')) }}
 								</div>
 							</div>
 
@@ -72,8 +71,6 @@
 									{{ Form::text('nombre', $solicitud->nombre, array('class' => 'form-control'))}}
 								</div>
 							</div>
-
-
 
 							<div class="form-group row">
 								{{ Form::label('genero', 'Género', array('class' => 'col-md-7 control-label')) }}
@@ -215,17 +212,19 @@
 
 							</div>
 
-							<button type="button" onclick="sendToServer(),siguiente()" class="btn btn-primary">Guardar</button>
+							<button type="button" class="btn btn-primary boton-siguiente">Guardar</button>
+							{{ Form::close() }}
 						</div>
-
-
-
 
 						<div class="tab-pane fade" id="tab2primary">
 							<p style="display: none">2</p>
 
+							{{ Form::model($solicitud, ['method' => 'POST','id' => 'formulario_2', 'files' => true]) }}
+
+							{{ Form::hidden('id_solicitud', $solicitud->id) }}
+
 							<div class="form-group row">
-								{{ Form::label('direccion', 'Dirreción', array('class' => 'col-md-7 control-label')) }}
+								{{ Form::label('direccion', 'Direción', array('class' => 'col-md-7 control-label')) }}
 								<div class="col-md-6">
 									{{ Form::text('direccion', $solicitud->direccion, array('class' => 'form-control')) }}
 								</div>
@@ -260,6 +259,13 @@
 							</div>
 
 							<div class="form-group row">
+								{{ Form::label('email', 'Correo electrónico', array('class' => 'col-md-7 control-label')) }}
+								<div class="col-md-6">
+									{{ Form::email('email', $solicitud->email, array('class' => 'form-control email')) }}
+								</div>
+							</div>
+
+							<div class="form-group row">
 								{{ Form::label('celular', 'Teléfono celular', array('class' => 'col-md-7 control-label')) }}
 								<div class="col-md-6">
 									{{ Form::text('celular', $solicitud->celular, array('class' => 'form-control numero', 'maxlength'=>'10')) }}
@@ -280,19 +286,20 @@
 								</div>
 							</div>
 
-							<div class="form-group row">
-								{{ Form::label('email', 'Correo electrónico', array('class' => 'col-md-7 control-label')) }}
-								<div class="col-md-6">
-									{{ Form::email('email', $solicitud->email, array('class' => 'form-control')) }}
-								</div>
-							</div>
-							<button type="button" onclick="sendToServer(),siguiente()" class="btn btn-primary">Guardar</button>
-                        </div>
+							<button type="button" class="btn btn-primary boton-siguiente boton-siguiente">Guardar</button>
+
+							{{ Form::close() }}
+
+						</div>
 
 
 
-                        <div class="tab-pane fade" id="tab3primary">
-                        	<p style="display: none">3</p>
+						<div class="tab-pane fade" id="tab3primary">
+							<p style="display: none">3</p>
+
+							{{ Form::model($solicitud, ['method' => 'POST','id' => 'formulario_3', 'files' => true]) }}
+
+							{{ Form::hidden('id_solicitud', $solicitud->id) }}
 
 							<div class="form-group row">
 								{{ Form::label('pasaporte_tiene', '¿Cuenta con pasaporte?', array('class' => 'col-md-7 control-label')) }}
@@ -313,7 +320,6 @@
 									</div>
 								</div>
 							</div>
-
 
 							<div class="pasaporte_tiene">
 
@@ -346,7 +352,7 @@
 								</div>
 
 								<div class="form-group row">
-									{{ Form::label('fecha_expedicion', 'Fecha de expedición', array('class' => 'col-md-7 control-label')) }}
+									{{ Form::label('fecha_expedicion', 'Fecha de emisión', array('class' => 'col-md-7 control-label')) }}
 									<div class="col-md-6">
 										{{ Form::text('fecha_expedicion', $solicitud->fecha_expedicion, array('class' => 'form-control fecha')) }}
 									</div>
@@ -380,15 +386,19 @@
 
 							</div>
 
+							<button type="button" class="btn btn-primary boton-siguiente">Guardar</button>
 
-
-							<button type="button" onclick="sendToServer(),siguiente()" class="btn btn-primary">Guardar</button>
+							{{ Form::close() }}
 						</div>
 
 
 
 						<div class="tab-pane fade" id="tab4primary"> 
 							<p style="display: none">4</p>
+
+							{{ Form::model($solicitud, ['method' => 'POST','id' => 'formulario_4', 'files' => true]) }}
+
+							{{ Form::hidden('id_solicitud', $solicitud->id) }}
 
 							<div class="form-group row">
 								{{ Form::label('financiamiento_persona', 'Persona que financía el viaje', array('class' => 'col-md-7 control-label')) }}
@@ -448,13 +458,29 @@
 									</div>
 								</div>
 							</div>
-
-							<button type="button" onclick="sendToServer(),siguiente()" class="btn btn-primary">Guardar</button>
+							
+							<div class="form-group row">
+								{{ Form::label('financiamiento_pago', '¿Cómo realizará el pago de su visa?', array('class' => 'col-md-7 control-label')) }}
+								<div class="col-md-6">
+									{{ Form::select('financiamiento_pago', array(
+									'Efectivo' => 'Efectivo',
+									'Transferencia' => 'Transferencia',
+									'Crédito' => 'Crédito',
+									),
+									$solicitud->financiamiento_pago, array('class' => 'form-control', 'id' => 'financiamiento_pago')) }}
+								</div>
+							</div>
+							<button type="button" class="btn btn-primary boton-siguiente">Guardar</button>
+							{{ Form::close() }}
 						</div>
 
 
 						<div class="tab-pane fade" id="tab5primary"> 
 							<p style="display: none">5</p>
+
+							{{ Form::model($solicitud, ['method' => 'POST','id' => 'formulario_5', 'files' => true]) }}
+
+							{{ Form::hidden('id_solicitud', $solicitud->id) }}
 
 							<div class="form-group row">
 								{{ Form::label('visitado', '¿Ha estado en Estado Unidos?', array('class' => 'col-md-7 control-label')) }}
@@ -478,10 +504,23 @@
 									</div>
 								</div>
 
+
 								<div class="form-group row">
-									{{ Form::label('visitado_tiempo', 'Tiempo pasado en la última visita a Estados Unidos', array('class' => 'col-md-7 control-label')) }}
-									<div class="col-md-6">
-										{{ Form::text('visitado_tiempo', $solicitud->visitado_tiempo, array('class' => 'form-control', 'placeholder'=>'Días/Meses/Años ')) }}
+									{{ Form::label('visitado_tiempo', 'Duración de la última visita a Estados Unidos', array('class' => 'col-md-7 control-label')) }}
+								</div>
+
+								<div class="form-group row" name="visitado_tiempo">
+									{{ Form::label('visitado_tiempo_1', 'Número', array('class' => 'col-sm-1 control-label')) }}
+									<div class="col-sm-2">
+										{{ Form::text('visitado_tiempo_1', $solicitud->visitado_tiempo_1, array('class' => 'form-control numero'))}}
+									</div>
+									<div class="col-sm-2">
+										{{ Form::select('visitado_tiempo_2', array(
+										'Días' => 'Días',
+										'Meses' => 'Meses',
+										'Años' => 'Años',
+										),
+										$solicitud->visitado_tiempo_2, array('class' => 'form-control')) }}
 									</div>
 								</div>
 
@@ -500,7 +539,7 @@
 							<br>
 							<br>
 							<div class="form-group row">
-								{{ Form::label('entrada_rechazada', '¿Alguna vez le han rechazado la entrada a Estados Unidos estando en el puente?', array('class' => 'col-md-7 control-label')) }}
+								{{ Form::label('entrada_rechazada', '¿Alguna vez le han rechazado la entrada a Estados Unidos?', array('class' => 'col-md-7 control-label')) }}
 								<div class="col-md-6">
 									{{ Form::select('entrada_rechazada', array(
 									'No' => 'No',
@@ -626,12 +665,17 @@
 								</div>
 
 							</div>
-							<button type="button" onclick="sendToServer(),siguiente()" class="btn btn-primary">Guardar</button>
+							<button type="button" class="btn btn-primary boton-siguiente">Guardar</button>
+							{{ Form::close() }}
 						</div>
 
 
 						<div class="tab-pane fade" id="tab6primary"> 
 							<p style="display: none">6</p>
+
+							{{ Form::model($solicitud, ['method' => 'POST','id' => 'formulario_6', 'files' => true]) }}
+
+							{{ Form::hidden('id_solicitud', $solicitud->id) }}
 
 								<div class="form-group row">
 									{{ Form::label('itinerario_viaje', '¿Cuenta con un itinerario para su viaje?', array('class' => 'col-md-7 control-label')) }}
@@ -700,15 +744,20 @@
 									</div>
 
 									<div class="form-group row" name="estadia_tiempo_visita">
-										{{ Form::label('estadia_tiempo_dias', 'Días', array('class' => 'col-sm-1 control-label')) }}
+										{{ Form::label('estadia_tiempo_dias', 'Número', array('class' => 'col-sm-1 control-label')) }}
 										<div class="col-sm-2">
-											{{ Form::text('estadia_tiempo_dias', $solicitud->estadia_tiempo_dias, array('class' => 'form-control'))}}
+											{{ Form::text('estadia_tiempo_dias', $solicitud->estadia_tiempo_dias, array('class' => 'form-control numero'))}}
 										</div>
-										{{ Form::label('estadia_tiempo_meses', 'Meses', array('class' => 'col-sm-1 control-label')) }}
+										{{ Form::label('estadia_tiempo_meses', 'Something', array('class' => 'col-sm-1 control-label')) }}
 										<div class="col-sm-2">
-											{{ Form::text('estadia_tiempo_meses', $solicitud->estadia_tiempo_meses, array('class' => 'form-control'))}}
+											{{ Form::select('estadia_tiempo_meses', array(
+											'Días' => 'Días',
+											'Meses' => 'Meses'
+											),
+											$solicitud->estadia_tiempo_meses, array('class' => 'form-control')) }}
 										</div>
 									</div>
+
 									<div class="form-group row">
 										{{ Form::label('motivos_viaje', 'Motivos por los que desea realizar el viaje', array('class' => 'col-md-7 control-label')) }}
 										<div class="col-md-6">
@@ -717,14 +766,59 @@
 									</div>
 								</div>
 
+								<div class="form-group row">
+									{{ Form::label('compania', '¿Viajará alguien más con usted?', array('class' => 'col-md-7 control-label')) }}
+									<div class="col-md-6">
+										{{ Form::select('compania', array(
+										'No' => 'No',
+										'Sí' => 'Sí'
+										),
+										$solicitud->compania, array('class' => 'form-control', 'id'=>'compania')) }}
+									</div>
+								</div>
+
+								<div class="compania">
+
+									<div class="form-group row">
+										{{ Form::label('compania_apellidos', 'Apellidos de la persona que viajará con usted', array('class' => 'col-md-7 control-label')) }}
+										<div class="col-md-6">
+											{{ Form::text('compania_apellidos', $solicitud->compania_apellidos, array('class' => 'form-control'))}}
+										</div>
+									</div>
+
+									<div class="form-group row">
+										{{ Form::label('compania_nombre', 'Nombre de la persona que viajará con usted', array('class' => 'col-md-7 control-label')) }}
+										<div class="col-md-6">
+											{{ Form::text('compania_nombre', $solicitud->compania_nombre, array('class' => 'form-control'))}}
+										</div>
+									</div>
+
+									<div class="form-group row">
+										{{ Form::label('compania_parentesco', 'Parentesco o relación con la persona que viajará con usted', array('class' => 'col-md-7 control-label')) }}
+										<div class="col-md-6">
+											{{ Form::select('compania_parentesco', array(
+											'Padre/Madre' => 'Padre/Madre',
+											'Hijo(a)' => 'Hijo(a)',
+											'Amigo(a)' => 'Amigo(a)'
+											),
+											$solicitud->compania_parentesco, array('class' => 'form-control', 'id'=>'compania_parentesco')) }}
+										</div>
+									</div>
+								</div>
 								<br>
 
-							<button type="button" onclick="sendToServer(),siguiente()" class="btn btn-primary">Guardar</button>
+							<button type="button" class="btn btn-primary boton-siguiente">Guardar</button>
+							{{ Form::close() }}
+
 						</div>
 
 
 						<div class="tab-pane fade" id="tab7primary"> 
 							<p style="display: none">7</p>
+
+							{{ Form::model($solicitud, ['method' => 'POST','id' => 'formulario_7', 'files' => true]) }}
+
+							{{ Form::hidden('id_solicitud', $solicitud->id) }}
 
 							<h3> Datos del Padre</h3>
 							<br>
@@ -899,12 +993,17 @@
 								</div>
 							</div>
 
-							<button type="button" onclick="sendToServer(),siguiente()" class="btn btn-primary">Guardar</button>
+							<button type="button" class="btn btn-primary boton-siguiente">Guardar</button>
+							{{ Form::close() }}
 						</div>
 
 
 						<div class="tab-pane fade" id="tab8primary"> 
 							<p style="display: none">8</p>
+
+							{{ Form::model($solicitud, ['method' => 'POST','id' => 'formulario_8', 'files' => true]) }}
+
+							{{ Form::hidden('id_solicitud', $solicitud->id) }}
 
 							<div class="form-group row">
 								{{ Form::label('ocupacion', '¿Cuál es su ocupación?', array('class' => 'col-md-7 control-label')) }}
@@ -916,7 +1015,8 @@
 									'Negocio propio' => 'Negocio propio',
 									'Ama de casa' => 'Ama de casa',
 									'Jubilado(a)' => 'Jubilado(a)',
-									'Pensionado(a)' => 'Pensionado(a)'
+									'Pensionado(a)' => 'Pensionado(a)',
+									'Infante (Menor de 3 años)' => 'Infante (Menor de 3 años)'
 									),
 									$solicitud->ocupacion, array('class' => 'form-control', 'id'=>'ocupacion')) }}
 								</div>
@@ -982,61 +1082,70 @@
 							</div>
 
 							<br>
-							<h3>Ocupación anterior</h3>
-							<div class="form-group row">
-								{{ Form::label('ocupacion_anterior', 'Antes de su actual actividad ¿A qué se dedicaba?', array('class' => 'col-md-7 control-label')) }}
-								<div class="col-md-6">
-									{{ Form::select('ocupacion_anterior', array(
-									'Estudiante' => 'Estudiante',
-									'Empleado (Empresa privada)' => 'Empleado (Empresa privada)',
-									'Empleado (Gobierno)' => 'Empleado (Gobierno)',
-									'Negocio propio' => 'Negocio propio',
-									'Ama de casa' => 'Ama de casa'
-									),
-									$solicitud->ocupacion_anterior, array('class' => 'form-control', 'id' => 'ocupacion_anterior')) }}
-								</div>
-							</div>
-
-							<div class="ocupacion_anterior">
+							<div class="no_infante">
+								<h3>Ocupación anterior</h3>
 								<div class="form-group row">
-									{{ Form::label('ocupacion_anterior_nombre', 'Nombre de la institución (Escuela/Empresa)', array('class' => 'col-md-7 control-label')) }}
+									{{ Form::label('ocupacion_anterior', 'Antes de su actual actividad ¿A qué se dedicaba?', array('class' => 'col-md-7 control-label')) }}
 									<div class="col-md-6">
-										{{ Form::text('ocupacion_anterior_nombre', $solicitud->ocupacion_anterior_nombre, array('class' => 'form-control'))}}
+										{{ Form::select('ocupacion_anterior', array(
+										'Estudiante' => 'Estudiante',
+										'Empleado (Empresa privada)' => 'Empleado (Empresa privada)',
+										'Empleado (Gobierno)' => 'Empleado (Gobierno)',
+										'Negocio propio' => 'Negocio propio',
+										'Ama de casa' => 'Ama de casa'
+										),
+										$solicitud->ocupacion_anterior, array('class' => 'form-control', 'id' => 'ocupacion_anterior')) }}
 									</div>
 								</div>
 
-								<div class="form-group row">
-									{{ Form::label('ocupacion_anterior_direccion', 'Dirección de la institución (Escuela/Empresa)', array('class' => 'col-md-7 control-label')) }}
-									<div class="col-md-6">
-										{{ Form::text('ocupacion_anterior_direccion', $solicitud->ocupacion_anterior_direccion, array('class' => 'form-control'))}}
+								<div class="ocupacion_anterior">
+									<div class="form-group row">
+										{{ Form::label('ocupacion_anterior_nombre', 'Nombre de la institución (Escuela/Empresa)', array('class' => 'col-md-7 control-label')) }}
+										<div class="col-md-6">
+											{{ Form::text('ocupacion_anterior_nombre', $solicitud->ocupacion_anterior_nombre, array('class' => 'form-control'))}}
+										</div>
 									</div>
-								</div>
 
-								<div class="form-group row">
-									{{ Form::label('ocupacion_anterior_codigo_postal', 'Código postal de la institución (Escuela/Empresa)', array('class' => 'col-md-7 control-label')) }}
-									<div class="col-md-6">
-										{{ Form::text('ocupacion_anterior_codigo_postal', $solicitud->ocupacion_anterior_codigo_postal, array('class' => 'form-control'))}}
+									<div class="form-group row">
+										{{ Form::label('ocupacion_anterior_direccion', 'Dirección de la institución (Escuela/Empresa)', array('class' => 'col-md-7 control-label')) }}
+										<div class="col-md-6">
+											{{ Form::text('ocupacion_anterior_direccion', $solicitud->ocupacion_anterior_direccion, array('class' => 'form-control'))}}
+										</div>
 									</div>
-								</div>
 
-								<div class="form-group row">
-									{{ Form::label('ocupacion_anterior_estado', 'Estado donde se ubica la institución (Escuela/Empresa)', array('class' => 'col-md-7 control-label')) }}
-									<div class="col-md-6">
-										{{ Form::text('ocupacion_anterior_estado', $solicitud->ocupacion_anterior_estado, array('class' => 'form-control'))}}
+									<div class="form-group row">
+										{{ Form::label('ocupacion_anterior_codigo_postal', 'Código postal de la institución (Escuela/Empresa)', array('class' => 'col-md-7 control-label')) }}
+										<div class="col-md-6">
+											{{ Form::text('ocupacion_anterior_codigo_postal', $solicitud->ocupacion_anterior_codigo_postal, array('class' => 'form-control'))}}
+										</div>
 									</div>
-								</div>
 
-								<div class="form-group row">
-									{{ Form::label('ocupacion_anterior_pais', 'País donde se ubica la institución (Escuela/Empresa)', array('class' => 'col-md-7 control-label')) }}
-									<div class="col-md-6">
-										{{ Form::text('ocupacion_anterior_pais', $solicitud->ocupacion_anterior_pais, array('class' => 'form-control'))}}
+									<div class="form-group row">
+										{{ Form::label('ocupacion_anterior_estado', 'Estado donde se ubica la institución (Escuela/Empresa)', array('class' => 'col-md-7 control-label')) }}
+										<div class="col-md-6">
+											{{ Form::text('ocupacion_anterior_estado', $solicitud->ocupacion_anterior_estado, array('class' => 'form-control'))}}
+										</div>
 									</div>
-								</div>
 
-								<div class="form-group row">
-									{{ Form::label('ocupacion_anterior_telefono', 'Teléfono de la institución (Escuela/Empresa)', array('class' => 'col-md-7 control-label')) }}
-									<div class="col-md-6">
-										{{ Form::text('ocupacion_anterior_telefono', $solicitud->ocupacion_anterior_telefono, array('class' => 'form-control numero', 'maxlength'=>'10'))}}
+									<div class="form-group row">
+										{{ Form::label('ocupacion_anterior_pais', 'País donde se ubica la institución (Escuela/Empresa)', array('class' => 'col-md-7 control-label')) }}
+										<div class="col-md-6">
+											{{ Form::text('ocupacion_anterior_pais', $solicitud->ocupacion_anterior_pais, array('class' => 'form-control'))}}
+										</div>
+									</div>
+
+									<div class="form-group row">
+										{{ Form::label('ocupacion_anterior_telefono', 'Teléfono de la institución (Escuela/Empresa)', array('class' => 'col-md-7 control-label')) }}
+										<div class="col-md-6">
+											{{ Form::text('ocupacion_anterior_telefono', $solicitud->ocupacion_anterior_telefono, array('class' => 'form-control numero', 'maxlength'=>'10'))}}
+										</div>
+									</div>
+
+									<div class="form-group row">
+										{{ Form::label('ocupacion_anterior_periodo', '¿Durante qué periodo (años) estuve en esa ocupación?', array('class' => 'col-md-7 control-label')) }}
+										<div class="col-md-6">
+											{{ Form::text('ocupacion_anterior_periodo', $solicitud->ocupacion_anterior_periodo, array('class' => 'form-control'))}}
+										</div>
 									</div>
 								</div>
 							</div>
@@ -1050,59 +1159,17 @@
 								</div>
 							</div>
 
-							<button type="button" onclick="sendToServer(),siguiente()" class="btn btn-primary">Guardar</button>
+							<button type="button" class="btn btn-primary boton-siguiente">Guardar</button>
+							{{ Form::close() }}
 						</div>
 
 
 						<div class="tab-pane fade" id="tab9primary"> 
 							<p style="display: none">9</p>
 
-								<div class="form-group row">
-									{{ Form::label('compania', '¿Viajará alguien más con usted?', array('class' => 'col-md-7 control-label')) }}
-									<div class="col-md-6">
-										{{ Form::select('compania', array(
-										'No' => 'No',
-										'Sí' => 'Sí'
-										),
-										$solicitud->compania, array('class' => 'form-control', 'id'=>'compania')) }}
-									</div>
-								</div>
+							{{ Form::model($solicitud, ['method' => 'POST','id' => 'formulario_9', 'files' => true]) }}
 
-								<div class="compania">
-
-									<div class="form-group row">
-										{{ Form::label('compania_apellidos', 'Apellidos de la persona que viajará con usted', array('class' => 'col-md-7 control-label')) }}
-										<div class="col-md-6">
-											{{ Form::text('compania_apellidos', $solicitud->compania_apellidos, array('class' => 'form-control'))}}
-										</div>
-									</div>
-
-									<div class="form-group row">
-										{{ Form::label('compania_nombre', 'Nombre de la persona que viajará con usted', array('class' => 'col-md-7 control-label')) }}
-										<div class="col-md-6">
-											{{ Form::text('compania_nombre', $solicitud->compania_nombre, array('class' => 'form-control'))}}
-										</div>
-									</div>
-
-									<div class="form-group row">
-										{{ Form::label('compania_parentesco', 'Parentesco o relación con la persona que viajará con usted', array('class' => 'col-md-7 control-label')) }}
-										<div class="col-md-6">
-											{{ Form::select('compania_parentesco', array(
-											'Padre/Madre' => 'Padre/Madre',
-											'Hijo(a)' => 'Hijo(a)',
-											'Amigo(a)' => 'Amigo(a)'
-											),
-											$solicitud->compania_parentesco, array('class' => 'form-control', 'id'=>'compania_parentesco')) }}
-										</div>
-									</div>
-								</div>
-
-
-							<button type="button" onclick="sendToServer(),siguiente()" class="btn btn-primary">Guardar</button>
-						</div>
-
-						<div class="tab-pane fade" id="tab10primary"> 
-							<p style="display: none">10</p>
+							{{ Form::hidden('id_solicitud', $solicitud->id) }}
 
 								<div class="form-group row">
 									{{ Form::label('arrestado', '¿Has sido arrestado por algún crimen o delito?', array('class' => 'col-md-7 control-label')) }}
@@ -1124,10 +1191,10 @@
 									</div>
 								</div>
 
+							<button type="button" class="btn btn-primary boton-siguiente" id="guardarFinal">Guardar</button>
 
-							<button type="button" onclick="sendToServer(),siguiente()" class="btn btn-primary">Guardar</button>
+							{{ Form::close() }}
 						</div>
-					<!--{{ Form::close() }}-->
 					</div> <!-- Fin de tab-content -->
 				</div> <!--Fin de panel-body -->
 			</div>
@@ -1135,5 +1202,39 @@
 	</div> <!-- Fin de row -->
 </div> <!-- Fin de container -->
 
+<div class="modal fade" id="modalInicio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel"> Mensaje Inicial</h4>
+			</div>
+			<div class="modal-body">
+				Mensaje Inicial
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="modalFinal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel"> Mensaje Final</h4>
+			</div>
+			<div class="modal-body">
+				Mensaje Final
+			</div>
+			<div class="modal-footer">
+				<a class="btn btn-info" role="button" href="{{ URL::to('final') }}">Siguiente <span class="glyphicon glyphicon-ok"></span></a>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Regresar</button>
+			</div>
+		</div>
+	</div>
+</div>
 @include('solicitudjs')
 @stop

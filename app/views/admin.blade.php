@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>Administrador VISATE</title>
+  <link rel="shortcut icon" type="image/png" href="http://awsd4bb9323.bitnamiapp.com/visate/public/assets/images/favicon.png"/>
   {{ HTML::style('assets/css/bootstrap.min.css') }}
-  {{ HTML::style('assets/css/style.css') }}
+  {{ HTML::style('assets/css/estilo.css') }}
 </head>
 <body>
 	<a class="btn btn-default" role="button" href="{{ URL::to('logout') }}" onclick="return confirm('¿Desea cerrar sesión?')">Cerrar sesión <span class="glyphicon glyphicon-log-out"></span></a>
