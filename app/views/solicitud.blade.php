@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
 	<div class="page-header">
-		<h1>Solicitud de Visa<span class="pull-right label label-default">ID = {{$solicitud->codigo_formulario}} </span></h1>
+		<figure><img src="assets/img/visate-horizontal.png" alt="logo visate"></figure><h1>Solicitud de Visa<span class="pull-right label label-default">ID = {{$solicitud->codigo_formulario}} </span></h1>
 	</div>
 	<div class="row">
 		<div class="col-md-11">

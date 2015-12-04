@@ -24,6 +24,10 @@ Route::get('admin/{codigo}', 'AdminController@solicitud')->before('auth');
 Route::delete('admin/delete/{id}', 'AdminController@destroy')->before('auth');
 
 
+Route::get('/', 'HomeController@index');
+
+Route::get('FAQ', 'HomeController@faq');
+
 Route::get('toForm', 'SolicitudController@toForm');
 
 Route::get('solicitud', 'SolicitudController@index');
