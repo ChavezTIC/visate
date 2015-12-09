@@ -15,7 +15,7 @@
     <meta property="og:image" content="">
     <meta name="format-detection" content="telephone=no">
     <meta name="format-detection" content="address=no">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="iniciar_tramite/css/style.css">
     <!--[if lt IE 9]>
         <script src="js/html5.js"></script>
         <script src="js/respond.js"></script>
@@ -33,17 +33,17 @@
 					</p>
                     <p class="autor">Toda la información que ingreses será utilizada únicamente para el trámite de tu visa y para tu seguridad y tranquilidad después de terminar tu trámite la información será borrada de nuestro sistema para que no reciba ningun otro uso.</p>
                     <div class="buttons-wrapper">
-                        <a href="http://52.35.5.72/visate/public/solicitud" class="button">Iniciar mi Tramite</a>
-                        <a href="http://52.35.5.72/visate/public/FAQ" class="button button-stripe">Dudas</a>
+                        <a href="{{ URL::to('solicitud') }}" class="button">Iniciar mi Tramite</a>
+                        <a href="{{ URL::to('FAQ') }}" class="button button-stripe">Dudas</a>
                     </div>
                 </div>
                 <!-- /.header-wrapper -->
             </div>
             <!-- /.wrap -->
         </header>
-    <script src="js/jquery.js"></script>
-    <script src="js/library.js"></script>
-    <script src="js/script.js"></script>
-    <script src="js/retina.js"></script>
+    <script src="iniciar_tramite/js/jquery.js"></script>
+    <script src="iniciar_tramite/js/library.js"></script>
+    <script src="iniciar_tramite/js/script.js"></script>
+    <script src="iniciar_tramite/js/retina.js"></script>
 </body>
 </html>

@@ -28,6 +28,8 @@ Route::get('/', 'HomeController@index');
 
 Route::get('FAQ', 'HomeController@faq');
 
+Route::get('iniciarTramite', 'HomeController@iniciarTramite');
+
 Route::get('toForm', 'SolicitudController@toForm');
 
 Route::get('solicitud', 'SolicitudController@index');

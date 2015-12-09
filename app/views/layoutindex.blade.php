@@ -44,7 +44,7 @@
                                 <li><a href="#download">Contacto</a></li>
                             </ul>
                             <ul class="member-actions">
-                                <li><a href="iniciar_tramite/index.html" class="btn-white btn-small">Iniciar mi Tramite</a></li>
+                                <li><a href="{{ URL::to('iniciarTramite') }}" class="btn-white btn-small">Iniciar mi Tramite</a></li>
                             </ul>
                         </nav>
                     </div>

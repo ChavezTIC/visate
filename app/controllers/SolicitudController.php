@@ -94,7 +94,6 @@ class SolicitudController extends \BaseController {
 			->join('familia', 'familia.datos_principal_fk', '=', 'datos_principal.id')
 			->join('ocupacion', 'ocupacion.datos_principal_fk', '=', 'datos_principal.id')
 			->join('visita', 'visita.datos_principal_fk', '=', 'datos_principal.id')
-			->join('compania', 'compania.datos_principal_fk', '=', 'datos_principal.id')
 			->join('seguridad', 'seguridad.datos_principal_fk', '=', 'datos_principal.id')
 			->where('datos_principal.id', $sol->datos_principal_fk)
 			->first();
@@ -460,7 +459,15 @@ class SolicitudController extends \BaseController {
 		$solicitud->update();
 	}
 
-	public function postForm(){
+	public function postSolicitud(){
+
+		$to			= 'alanfrdez@gmail.com';
+		$subject	= 'VISATE: Solicitud recibida';
+		$message	= 'Hello there';
+		$headers	= 'From: contacto@visate.mx' . "\r\n" .
+					'X-Mailer: PHP/' . phpversion();
+		mail($to, $subject, $message, $headers);
+
 		return View::make('final');
 	}
 }

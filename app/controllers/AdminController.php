@@ -24,7 +24,6 @@ class AdminController extends BaseController {
 		->join('familia', 'familia.datos_principal_fk', '=', 'datos_principal.id')
 		->join('ocupacion', 'ocupacion.datos_principal_fk', '=', 'datos_principal.id')
 		->join('visita', 'visita.datos_principal_fk', '=', 'datos_principal.id')
-		->join('compania', 'compania.datos_principal_fk', '=', 'datos_principal.id')
 		->join('seguridad', 'seguridad.datos_principal_fk', '=', 'datos_principal.id')
 		->where('datos_principal.id', $sol->id)
 		->first();
@@ -51,8 +50,6 @@ class AdminController extends BaseController {
 		$Solicitud = Familia::find($id);
 		$Solicitud->delete();
 		$Solicitud = Ocupacion::find($id);
-		$Solicitud->delete();
-		$Solicitud = Compania::find($id);
 		$Solicitud->delete();
 		$Solicitud = Seguridad::find($id);
 		$Solicitud->delete();

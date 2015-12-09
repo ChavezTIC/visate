@@ -12,6 +12,11 @@ class HomeController extends BaseController {
 		return View::make('faq');
 	}
 
+	public function iniciarTramite()
+	{
+		return View::make('iniciar_tramite');
+	}
+
 	public function showLogin()
 	{
 		return View::make('login');
