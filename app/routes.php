@@ -57,3 +57,5 @@ Route::post('solicitud/update8', 'SolicitudController@updateOcupacion');
 Route::post('solicitud/update9', 'SolicitudController@updateSeguridad');
 
 Route::get('final', 'SolicitudController@postSolicitud');
+
+Route::post('final', 'SolicitudController@postSolicitud');

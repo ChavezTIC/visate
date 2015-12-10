@@ -1,8 +1,6 @@
 <script type="text/javascript">
 $(document).ready(function () {
 
-	new Clipboard('.btnCopiar');
-
 	var tabid,
 	fecha = $('.fecha'),
 	numero = $('.numero'),
@@ -13,7 +11,10 @@ $(document).ready(function () {
 	}, 500);
 
 	$( "#guardarFinal" ).click(function() {
-		$('#modalFinal').modal('show');
+		if(validateForm("#formulario_9")) {
+			$('#modalFinal').modal('show');
+		}
+
 	});
 
 	$(fecha).datetimepicker({
@@ -32,7 +33,7 @@ $(document).ready(function () {
 
 	$(email).focusout(function() {
 		if(validateEmail($('.email').val())) {
-			console.log('email true');
+			$('[name="email_final"]').val($('.email').val());
 		}
 		else {
 			swal('Formato incorrecto de correo');
@@ -58,7 +59,7 @@ $(document).ready(function () {
 
 			$('.tab'+(parseInt(tabid)+1)).attr('data-toggle', 'tab');
 			$('.tab'+(parseInt(tabid)+1)).parent().removeClass("disabled")
-			var url = "solicitud/update"+tabid;
+			var url = "http://visate.mx/solicitud/update"+tabid;
 
 			$.ajax({
 				type: "POST",
@@ -99,7 +100,6 @@ $(document).ready(function () {
 	}
 
 	function validateForm (form){
-		console.log(form+' .form-control');
 		var isValid = true;
 		$(form+' .form-control').each(function() {
 			if($(this).is(":visible"))

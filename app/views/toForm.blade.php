@@ -34,13 +34,14 @@
 					</div>
 				</div>
 				<div class="form-group">
-					{{ Form::label('pasaporte', 'Número de pasaporte', array('class' => 'col-sm-2 control-label')) }}
+					{{ Form::label('id_solicitud', 'ID de la Solicitud', array('class' => 'col-sm-2 control-label')) }}
 					<div class="col-sm-5">
-						{{ Form::text('pasaporte', null, array('class' => 'form-control')) }}
+						{{ Form::text('id_solicitud', null, array('class' => 'form-control','required' => 'required')) }}
 					</div>
 				</div>
 				<button type="submit" id="botonToForm" class="btn btn-info"><span class="glyphicon glyphicon-ok"></span> Ir al formulario</button>
 			{{ Form::close() }}
+
 		</div>
 </body>
 </html>

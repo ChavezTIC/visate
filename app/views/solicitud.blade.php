@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
 	<div class="page-header">
-		<figure><img src="assets/img/visate-horizontal.png" alt="logo visate"></figure><h1>Solicitud de Visa<span class="pull-right label label-default">ID = {{$solicitud->codigo_formulario}} </span></h1>
+		<figure>{{ HTML::image('assets/img/visate-horizontal.png') }}</figure><h1>Solicitud de Visa<span class="pull-right label label-default">ID = {{$solicitud->codigo_formulario}} </span></h1>
 	</div>
 	<div class="row">
 		<div class="col-md-11">
@@ -17,7 +17,7 @@
 						<li class="disabled"><a href="#tab6primary" class="tab6 moverTab">Visita</a></li>
 						<li class="disabled"><a href="#tab7primary" class="tab7 moverTab">Familia</a></li>
 						<li class="disabled"><a href="#tab8primary" class="tab8 moverTab">Ocupación</a></li>
-						<li class="disabled"><a href="#tab9primary" class="tab9 moverTab">Seguridad</a></li>
+						<li class=""><a href="#tab9primary" class="tab9 moverTab">Seguridad</a></li>
 					</ul>
 				</div>
 				<div class="panel-body">
@@ -1230,7 +1230,10 @@
 				Mensaje Final
 			</div>
 			<div class="modal-footer">
-				<a class="btn btn-info" role="button" href="{{ URL::to('final') }}">Siguiente <span class="glyphicon glyphicon-ok"></span></a>
+				{{ Form::open(array('action' => 'SolicitudController@postSolicitud')) }}
+				<input type="hidden" name='email_final'>
+				<button type="submit" class="btn btn-info"> Terminar</button>
+				{{ Form::close() }}
 				<button type="button" class="btn btn-default" data-dismiss="modal">Regresar</button>
 			</div>
 		</div>

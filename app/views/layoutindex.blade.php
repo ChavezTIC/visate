@@ -59,7 +59,7 @@
                 <div class="col-md-10 col-md-offset-1">
                     <div class="hero-content text-center">
                         <h1>Tramita Tu Visa de Manera Totalmente Segura</h1>
-                        <p class="intro">Realiza el trámite de tu cita para visa en menos de 20 minutoss y totalmente en español</p>
+                        <p class="intro">Realiza el trámite de tu cita para visa en menos de 20 minutos y totalmente en español</p>
                         <a href="iniciar_tramite/index.html" class="btn btn-fill btn-large btn-margin-right">Tramitar mi Visa</a>
                     </div>
                 </div>

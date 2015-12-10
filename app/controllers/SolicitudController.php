@@ -47,7 +47,6 @@ class SolicitudController extends \BaseController {
 		$Seguridad->save();
 
 		$codigo = $codigoFormulario;
-		//return Redirect::to('solicitud/'.$codigo);
 
 		$sol = DB::table('datos_principal')->where('codigo_formulario', '=', $codigo)->first();
 
@@ -80,9 +79,10 @@ class SolicitudController extends \BaseController {
 
 	public function editar() {
 
-		$pasaporte = Input::get('pasaporte');
+		$id_solicitud = Input::get('id_solicitud');
+		$correo = Input::get('email');
 
-		$sol = DB::table('pasaporte')->where('numero_pasaporte', '=', $pasaporte)->first();
+		$sol = DB::table('datos_principal')->where('codigo_formulario', '=', $id_solicitud)->first();
 
 		if($sol)
 		{
@@ -95,14 +95,15 @@ class SolicitudController extends \BaseController {
 			->join('ocupacion', 'ocupacion.datos_principal_fk', '=', 'datos_principal.id')
 			->join('visita', 'visita.datos_principal_fk', '=', 'datos_principal.id')
 			->join('seguridad', 'seguridad.datos_principal_fk', '=', 'datos_principal.id')
-			->where('datos_principal.id', $sol->datos_principal_fk)
+			->where('datos_principal.id', $sol->id)
 			->first();
 
 			if(($solicitud->nacionalidad!='')||($solicitud->nacionalidad!=null)) $Nacionalidad = $solicitud->nacionalidad;
 			else $Nacionalidad = 'MEXICANA';
 
-			return View::make('solicitud')
-			->with('solicitud',$solicitud)->with('Nacionalidad', $Nacionalidad);			
+			$editar = true;
+
+			return View::make('solicitud')->with(compact('solicitud','Nacionalidad','editar'));		
 		}
 
 		else
@@ -461,13 +462,20 @@ class SolicitudController extends \BaseController {
 
 	public function postSolicitud(){
 
-		$to			= 'alanfrdez@gmail.com';
+		$to			= Input::get('email_final');
 		$subject	= 'VISATE: Solicitud recibida';
 		$message	= 'Hello there';
 		$headers	= 'From: contacto@visate.mx' . "\r\n" .
 					'X-Mailer: PHP/' . phpversion();
 		mail($to, $subject, $message, $headers);
 
-		return View::make('final');
+		$to1			= 'contacto@visate.mx';
+		$subject1	= 'VISATE: Nueva solicitud';
+		$message1	= 'Nueva solicitud';
+		$headers1	= 'From: contacto@visate.mx' . "\r\n" .
+					'X-Mailer: PHP/' . phpversion();
+		mail($to1, $subject1, $message1, $headers1);
+
+		return var_dump($to);
 	}
 }
