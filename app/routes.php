@@ -34,7 +34,7 @@ Route::get('toForm', 'SolicitudController@toForm');
 
 Route::get('solicitud', 'SolicitudController@index');
 
-Route::post('solicitud/editar', 'SolicitudController@editar');
+Route::post('solicitud', 'SolicitudController@index');
 
 //Route::get('solicitud/{codigo}', 'SolicitudController@showForm');
 

@@ -8,81 +8,59 @@ class SolicitudController extends \BaseController {
 	 * @return Response
 	 */
 	public function index() {
-		$codigoFormulario = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 10)), 0, 10);
 
-		$Principal = new Principal;
-		$Principal->codigo_formulario = $codigoFormulario;
-		$Principal->save();
-		$DatosContacto = new DatosContacto;
-		$DatosContacto->id = $Principal->id;
-		$DatosContacto->datos_principal_fk = $Principal->id;
-		$DatosContacto->save();
-		$Pasaporte = new Pasaporte;
-		$Pasaporte->id = $Principal->id;
-		$Pasaporte->datos_principal_fk = $Principal->id;
-		$Pasaporte->save();
-		$Financiamiento = new Financiamiento;
-		$Financiamiento->id = $Principal->id;
-		$Financiamiento->datos_principal_fk = $Principal->id;
-		$Financiamiento->save();
-		$UltimaVisita = new UltimaVisita;
-		$UltimaVisita->id = $Principal->id;
-		$UltimaVisita->datos_principal_fk = $Principal->id;
-		$UltimaVisita->save();
-		$Visita = new Visita;
-		$Visita->id = $Principal->id;
-		$Visita->datos_principal_fk = $Principal->id;
-		$Visita->save();
-		$Familia = new Familia;
-		$Familia->id = $Principal->id;
-		$Familia->datos_principal_fk = $Principal->id;
-		$Familia->save();
-		$Ocupacion = new Ocupacion;
-		$Ocupacion->id = $Principal->id;
-		$Ocupacion->datos_principal_fk = $Principal->id;
-		$Ocupacion->save();
-		$Seguridad = new Seguridad;
-		$Seguridad->id = $Principal->id;
-		$Seguridad->datos_principal_fk = $Principal->id;
-		$Seguridad->save();
-
-		$codigo = $codigoFormulario;
-
-		$sol = DB::table('datos_principal')->where('codigo_formulario', '=', $codigo)->first();
-
-		$solicitud = DB::table('datos_principal')
-		->join('datos_contacto', 'datos_contacto.datos_principal_fk', '=', 'datos_principal.id')
-		->join('pasaporte', 'pasaporte.datos_principal_fk', '=', 'datos_principal.id')
-		->join('financiamiento', 'financiamiento.id', '=', 'datos_principal.id')
-		->join('ultima_visita', 'ultima_visita.id', '=', 'datos_principal.id')
-		->join('familia', 'familia.datos_principal_fk', '=', 'datos_principal.id')
-		->join('ocupacion', 'ocupacion.datos_principal_fk', '=', 'datos_principal.id')
-		->join('visita', 'visita.datos_principal_fk', '=', 'datos_principal.id')
-		->join('seguridad', 'seguridad.datos_principal_fk', '=', 'datos_principal.id')
-		->where('datos_principal.id', $sol->id)
-		->first();
-
-		if(($solicitud->nacionalidad!='')||($solicitud->nacionalidad!=null)) $Nacionalidad = $solicitud->nacionalidad;
-		else $Nacionalidad = 'MEXICANA';
-		return View::make('solicitud')
-		->with('solicitud',$solicitud)->with('Nacionalidad', $Nacionalidad)->with('test', $sol->codigo_formulario);
-	}
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function toForm() {
-		return View::make('toForm');
-	}
-
-	public function editar() {
-
-		$id_solicitud = Input::get('id_solicitud');
+		$codigo = Input::get('id_solicitud');
 		$correo = Input::get('email');
 
-		$sol = DB::table('datos_principal')->where('codigo_formulario', '=', $id_solicitud)->first();
+		if($codigo!=''&&$codigo!=null&&$correo!=''&&$correo!=null)
+		{
+
+		}
+		else
+		{
+			$codigoFormulario = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 10)), 0, 10);
+
+			$Principal = new Principal;
+			$Principal->codigo_formulario = $codigoFormulario;
+			$Principal->save();
+			$DatosContacto = new DatosContacto;
+			$DatosContacto->id = $Principal->id;
+			$DatosContacto->datos_principal_fk = $Principal->id;
+			$DatosContacto->save();
+			$Pasaporte = new Pasaporte;
+			$Pasaporte->id = $Principal->id;
+			$Pasaporte->datos_principal_fk = $Principal->id;
+			$Pasaporte->save();
+			$Financiamiento = new Financiamiento;
+			$Financiamiento->id = $Principal->id;
+			$Financiamiento->datos_principal_fk = $Principal->id;
+			$Financiamiento->save();
+			$UltimaVisita = new UltimaVisita;
+			$UltimaVisita->id = $Principal->id;
+			$UltimaVisita->datos_principal_fk = $Principal->id;
+			$UltimaVisita->save();
+			$Visita = new Visita;
+			$Visita->id = $Principal->id;
+			$Visita->datos_principal_fk = $Principal->id;
+			$Visita->save();
+			$Familia = new Familia;
+			$Familia->id = $Principal->id;
+			$Familia->datos_principal_fk = $Principal->id;
+			$Familia->save();
+			$Ocupacion = new Ocupacion;
+			$Ocupacion->id = $Principal->id;
+			$Ocupacion->datos_principal_fk = $Principal->id;
+			$Ocupacion->save();
+			$Seguridad = new Seguridad;
+			$Seguridad->id = $Principal->id;
+			$Seguridad->datos_principal_fk = $Principal->id;
+			$Seguridad->save();
+
+			$codigo = $codigoFormulario;
+		}
+
+
+		$sol = DB::table('datos_principal')->where('codigo_formulario', '=', $codigo)->first();
 
 		if($sol)
 		{
@@ -101,9 +79,51 @@ class SolicitudController extends \BaseController {
 			if(($solicitud->nacionalidad!='')||($solicitud->nacionalidad!=null)) $Nacionalidad = $solicitud->nacionalidad;
 			else $Nacionalidad = 'MEXICANA';
 
-			$editar = true;
+			return View::make('solicitud')->with(compact('solicitud','Nacionalidad'));		
+		}
 
-			return View::make('solicitud')->with(compact('solicitud','Nacionalidad','editar'));		
+		else
+		{
+			Session::flash('message', 'Solicitud no encontrada');
+			return Redirect::to('toForm');
+
+		}
+	}
+
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function toForm() {
+		return View::make('toForm');
+	}
+
+	public function editar() {
+
+		$codigo = Input::get('id_solicitud');
+		$correo = Input::get('email');
+
+		$sol = DB::table('datos_principal')->where('codigo_formulario', '=', $codigo)->first();
+
+		if($sol)
+		{
+			$solicitud = DB::table('datos_principal')
+			->join('datos_contacto', 'datos_contacto.datos_principal_fk', '=', 'datos_principal.id')
+			->join('pasaporte', 'pasaporte.datos_principal_fk', '=', 'datos_principal.id')
+			->join('financiamiento', 'financiamiento.id', '=', 'datos_principal.id')
+			->join('ultima_visita', 'ultima_visita.id', '=', 'datos_principal.id')
+			->join('familia', 'familia.datos_principal_fk', '=', 'datos_principal.id')
+			->join('ocupacion', 'ocupacion.datos_principal_fk', '=', 'datos_principal.id')
+			->join('visita', 'visita.datos_principal_fk', '=', 'datos_principal.id')
+			->join('seguridad', 'seguridad.datos_principal_fk', '=', 'datos_principal.id')
+			->where('datos_principal.id', $sol->id)
+			->first();
+
+			if(($solicitud->nacionalidad!='')||($solicitud->nacionalidad!=null)) $Nacionalidad = $solicitud->nacionalidad;
+			else $Nacionalidad = 'MEXICANA';
+
+			return View::make('solicitud')->with(compact('solicitud','Nacionalidad'));		
 		}
 
 		else

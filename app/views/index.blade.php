@@ -103,7 +103,7 @@
 				<div class="col-md-6 col-md-offset-3">
 					<h3>Tramita tu Visa Aquí</h3>
 					<p>Inicia y termina tu trámite en menos de 20 minutos</p>
-					{{ Form::open(array('url' => 'solicitud/editar','class' => 'signup-form')) }}
+					{{ Form::open(array('url' => 'solicitud','class' => 'signup-form')) }}
 						<div class="form-input-group">
 							<i class="fa fa-envelope"></i>{{ Form::text('email', null, array('placeholder'=>'Ingresa tu E-mail','required' => 'required')) }}
 						</div>

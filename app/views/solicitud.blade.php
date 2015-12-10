@@ -17,7 +17,7 @@
 						<li class="disabled"><a href="#tab6primary" class="tab6 moverTab">Visita</a></li>
 						<li class="disabled"><a href="#tab7primary" class="tab7 moverTab">Familia</a></li>
 						<li class="disabled"><a href="#tab8primary" class="tab8 moverTab">Ocupación</a></li>
-						<li class=""><a href="#tab9primary" class="tab9 moverTab">Seguridad</a></li>
+						<li class="disabled"><a href="#tab9primary" class="tab9 moverTab">Seguridad</a></li>
 					</ul>
 				</div>
 				<div class="panel-body">

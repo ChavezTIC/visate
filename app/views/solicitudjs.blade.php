@@ -5,6 +5,7 @@ $(document).ready(function () {
 	fecha = $('.fecha'),
 	numero = $('.numero'),
 	email = $('.email');
+	var secciones = ['Principal','Datos de contacto','Pasaporte','Financiamiento','Última visita','Visita','Familia','Ocupación','Seguridad'];
 
 	setTimeout(function() {
 		$('#modalInicio').modal('show');
@@ -14,7 +15,6 @@ $(document).ready(function () {
 		if(validateForm("#formulario_9")) {
 			$('#modalFinal').modal('show');
 		}
-
 	});
 
 	$(fecha).datetimepicker({
@@ -42,23 +42,28 @@ $(document).ready(function () {
 	});
 
 	$(".moverTab").click(function() {
-		sendToServer();
+		sendToServer(tabid);
 	});
 
 	$(".boton-siguiente").click(function() {
-		sendToServer();
+		sendToServer(tabid);
 		siguiente();
 	});
 
-	sendToServer = function() {
+	function tabactual(){
 		var $tab = $('#myTabContent');
 		var $active = $tab.find('.tab-pane.active');
-		tabid = $active.find('p:hidden').text();
+		var tabid = $active.find('p:hidden').text();
+		return tabid;		
+	}
 
+	sendToServer = function(seccion) {
+
+		tabid = tabactual();
 		if(validateForm("#formulario_"+tabid)) {
 
 			$('.tab'+(parseInt(tabid)+1)).attr('data-toggle', 'tab');
-			$('.tab'+(parseInt(tabid)+1)).parent().removeClass("disabled")
+			$('.tab'+(parseInt(tabid)+1)).parent().removeClass("disabled");
 			var url = "http://visate.mx/solicitud/update"+tabid;
 
 			$.ajax({
@@ -75,12 +80,19 @@ $(document).ready(function () {
 		else {
 			swal({
 				title: "D:",
-				text: "Esta sección aún no está completa",
+				text: "La sección '"+secciones[tabid-1]+"' aún no está completa",
 				type: "error",
 				confirmButtonText: "Oh well..."
 			});
 		}
 	}
+
+	$('input.form-control').on('input',function(e){
+		if(validateForm("#formulario_"+tabactual())) {
+
+			$('.tab'+(parseInt(tabactual())+1)).parent().removeClass("disabled");
+		}
+	});
 
 	siguiente = function(){
 		
