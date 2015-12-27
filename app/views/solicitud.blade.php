@@ -1224,13 +1224,14 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel"> Mensaje Final</h4>
+				<h4 class="modal-title" id="myModalLabel"> Formulario terminado</h4>
 			</div>
 			<div class="modal-body">
-				Mensaje Final
+				Ha terminado de responder exitosamente el formulario
 			</div>
 			<div class="modal-footer">
 				{{ Form::open(array('action' => 'SolicitudController@postSolicitud')) }}
+				<input type="hidden" name='codigo_final' value="{{$solicitud->codigo_formulario}}">
 				<input type="hidden" name='email_final'>
 				<button type="submit" class="btn btn-info"> Terminar</button>
 				{{ Form::close() }}

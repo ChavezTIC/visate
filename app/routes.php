@@ -28,15 +28,19 @@ Route::get('/', 'HomeController@index');
 
 Route::get('FAQ', 'HomeController@faq');
 
+Route::get('toForm', 'HomeController@toForm');
+
 Route::get('iniciarTramite', 'HomeController@iniciarTramite');
 
-Route::get('toForm', 'SolicitudController@toForm');
 
 Route::get('solicitud', 'SolicitudController@index');
 
 Route::post('solicitud', 'SolicitudController@index');
 
-//Route::get('solicitud/{codigo}', 'SolicitudController@showForm');
+Route::get('final', 'SolicitudController@postSolicitud');
+
+Route::post('final', 'SolicitudController@postSolicitud');
+
 
 Route::post('solicitud/update1', 'SolicitudController@updatePrincipal');
 
@@ -55,7 +59,3 @@ Route::post('solicitud/update7', 'SolicitudController@updateFamilia');
 Route::post('solicitud/update8', 'SolicitudController@updateOcupacion');
 
 Route::post('solicitud/update9', 'SolicitudController@updateSeguridad');
-
-Route::get('final', 'SolicitudController@postSolicitud');
-
-Route::post('final', 'SolicitudController@postSolicitud');

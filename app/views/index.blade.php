@@ -126,6 +126,7 @@
 		</div>
 	</section>
 
+	{{ HTML::script('assets/js/jquery-2.1.3.min.js') }}
 	<script type="text/javascript">
 	$(document).ready(function() {
 		/***************** Smooth Scrolling ******************/

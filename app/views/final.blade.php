@@ -10,7 +10,7 @@
 </head>
 <body>
 
-	Soy la vista después del formulario
+	Formulario Recibido
 
 	{{ HTML::script('assets/js/jquery-2.1.3.min.js') }}
 	{{ HTML::script('assets/js/bootstrap.min.js') }}

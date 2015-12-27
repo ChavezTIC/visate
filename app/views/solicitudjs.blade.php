@@ -7,9 +7,9 @@ $(document).ready(function () {
 	email = $('.email');
 	var secciones = ['Principal','Datos de contacto','Pasaporte','Financiamiento','Última visita','Visita','Familia','Ocupación','Seguridad'];
 
-	setTimeout(function() {
-		$('#modalInicio').modal('show');
-	}, 500);
+	// setTimeout(function() {
+	// 	$('#modalInicio').modal('show');
+	// }, 500);
 
 	$( "#guardarFinal" ).click(function() {
 		if(validateForm("#formulario_9")) {

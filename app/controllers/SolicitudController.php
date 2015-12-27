@@ -2,11 +2,6 @@
 
 class SolicitudController extends \BaseController {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
 	public function index() {
 
 		$codigo = Input::get('id_solicitud');
@@ -88,51 +83,6 @@ class SolicitudController extends \BaseController {
 			return Redirect::to('toForm');
 
 		}
-	}
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function toForm() {
-		return View::make('toForm');
-	}
-
-	public function editar() {
-
-		$codigo = Input::get('id_solicitud');
-		$correo = Input::get('email');
-
-		$sol = DB::table('datos_principal')->where('codigo_formulario', '=', $codigo)->first();
-
-		if($sol)
-		{
-			$solicitud = DB::table('datos_principal')
-			->join('datos_contacto', 'datos_contacto.datos_principal_fk', '=', 'datos_principal.id')
-			->join('pasaporte', 'pasaporte.datos_principal_fk', '=', 'datos_principal.id')
-			->join('financiamiento', 'financiamiento.id', '=', 'datos_principal.id')
-			->join('ultima_visita', 'ultima_visita.id', '=', 'datos_principal.id')
-			->join('familia', 'familia.datos_principal_fk', '=', 'datos_principal.id')
-			->join('ocupacion', 'ocupacion.datos_principal_fk', '=', 'datos_principal.id')
-			->join('visita', 'visita.datos_principal_fk', '=', 'datos_principal.id')
-			->join('seguridad', 'seguridad.datos_principal_fk', '=', 'datos_principal.id')
-			->where('datos_principal.id', $sol->id)
-			->first();
-
-			if(($solicitud->nacionalidad!='')||($solicitud->nacionalidad!=null)) $Nacionalidad = $solicitud->nacionalidad;
-			else $Nacionalidad = 'MEXICANA';
-
-			return View::make('solicitud')->with(compact('solicitud','Nacionalidad'));		
-		}
-
-		else
-		{
-			Session::flash('message', 'Solicitud no encontrada');
-			return Redirect::to('toForm');
-
-		}
-
 	}
 
 	public function updatePrincipal() {
@@ -482,16 +432,21 @@ class SolicitudController extends \BaseController {
 
 	public function postSolicitud(){
 
-		$to			= Input::get('email_final');
+		$to			= 'chavez_048@hotmail.com';
 		$subject	= 'VISATE: Solicitud recibida';
-		$message	= 'Hello there';
+		$message	= 'Gracias por iniciar tu trámite con nosotros.'."\n\n";
+		$message	.= 'Estamos procesando tu solicitud y nos pondremos en contacto a la brevedad contigo.'."\n\n";
+		$message	.= 'Cualquier duda o comentario puedes mandarla a este correo (contacto@visate.mx)'."\n\n";
+		$message	.= 'Hasta pronto.'."\n\n";
+		$message	.= 'ID de la solicitud: '.Input::get('codigo_final')."\n";
 		$headers	= 'From: contacto@visate.mx' . "\r\n" .
 					'X-Mailer: PHP/' . phpversion();
 		mail($to, $subject, $message, $headers);
 
-		$to1			= 'contacto@visate.mx';
+		$to1		= 'contacto@visate.mx';
 		$subject1	= 'VISATE: Nueva solicitud';
-		$message1	= 'Nueva solicitud';
+		$message1	= 'Nueva solicitud'."\n\n";
+		$message1	.= 'ID de la solicitud: '.Input::get('codigo_final')."\n";
 		$headers1	= 'From: contacto@visate.mx' . "\r\n" .
 					'X-Mailer: PHP/' . phpversion();
 		mail($to1, $subject1, $message1, $headers1);

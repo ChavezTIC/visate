@@ -17,6 +17,10 @@ class HomeController extends BaseController {
 		return View::make('iniciar_tramite');
 	}
 
+	public function toForm() {
+		return View::make('toForm');
+	}
+	
 	public function showLogin()
 	{
 		return View::make('login');

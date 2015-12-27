@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>VISATE.MX</title>
+    <title>Vísate</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -60,7 +60,7 @@
                     <div class="hero-content text-center">
                         <h1>Tramita Tu Visa de Manera Totalmente Segura</h1>
                         <p class="intro">Realiza el trámite de tu cita para visa en menos de 20 minutos y totalmente en español</p>
-                        <a href="iniciar_tramite/index.html" class="btn btn-fill btn-large btn-margin-right">Tramitar mi Visa</a>
+                        <a href="{{ URL::to('iniciarTramite') }}" class="btn btn-fill btn-large btn-margin-right">Tramitar mi Visa</a>
                     </div>
                 </div>
             </div>
@@ -96,8 +96,7 @@
             </div>
         </div>
     </footer>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+    {{ HTML::script('assets/js/jquery-2.1.3.min.js') }}
     <script src="assets/bower_components/retina.js/dist/retina.js"></script>
     <script src="assets/js/jquery.fancybox.pack.js"></script>
     <script src="assets/js/vendor/bootstrap.min.js"></script>
