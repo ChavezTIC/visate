@@ -3,6 +3,7 @@
 <!--........................................  FAQ     .......................................-->
 <!--.........................................................................................-->
 
+<div class="espacio_negro"></div>
 
 <div class="jumbotron">
 	<div class="container">
@@ -134,36 +135,47 @@
 					</h4>
 				</div>
 				<div id="collapse9" class="panel-collapse collapse ">
-					<div class="panel-body">
-						GENERAL:
-						*pasaporte vigente
-						*acta de nacimiento
-						*curp 
-						*credencial de elector
-						*comprobante de domicilio 
-						*datos del seguro social o issste
-						*licencia de manejo  
-						*visa anterior 
+					<div class="panel-body lista-requisitos">
+						General:
+						<ul>
+							<li>Pasaporte vigente</li>
+							<li>Acta de nacimiento</li>
+							<li>CURP</li>
+							<li>Credencial de elector</li>
+							<li>Comprobante de domicilio</li>
+							<li>Datos del seguro social o issste</li>
+							<li>Licencia de manejo</li>
+							<li>Visa anterior</li>
+						</ul>
+						<br>
 						Empleado:
-						*acta de estado civil 
-						*documentos de afore
-						*credencial de empleado
-						*carta de trabajo con sueldo, antigüedad y puesto
-						*últimas cinco nominas
-						*cuentas bancarias 
+						<ul>
+							<li>Acta de estado civil</li>
+							<li>Documentos de afore</li>
+							<li>Credencial de empleado</li>
+							<li>Carta de trabajo con sueldo, antigüedad y puesto</li>
+							<li>Últimas cinco nominas</li>
+							<li>Cuentas bancarias</li>
+						</ul>
+						<br>
 						Estudiante:
-						* datos de escuela
-						*constancia de estudios
-						*solvencia económica
-						*acta de ambos padres
-						*visa o pasaporte (en caso de tener)
-						*pago de colegiaturas
+						<ul>
+							<li>Datos de escuela</li>
+							<li>Constancia de estudios</li>
+							<li>Solvencia económica</li>
+							<li>Acta de ambos padres</li>
+							<li>Visa o pasaporte (en caso de tener)</li>
+							<li>Pago de colegiaturas</li>
+						</ul>
+						<br>
 						Menor de 7 años:
-						*carta de pediatra (con foto y sello)
-						*copia de cedula del pediatra
-						*cartilla de vacunación
-						*acta de alumbramiento
-						*permiso notariado en caso de que no valla alguno de los padres 
+						<ul>
+							<li>Carta de pediatra (con foto y sello)</li>
+							<li>Copia de cedula del pediatra</li>
+							<li>Cartilla de vacunación</li>
+							<li>Acta de alumbramiento</li>
+							<li>Permiso notariado en caso de que no vaya alguno de los padres</li>
+						</ul>
 					</div>
 				</div>
 			</div>
@@ -203,7 +215,7 @@
 				<div class="panel-heading">
 					<h4 class="panel-title">
 						<a data-toggle="collapse" data-parent="#accordion" href="#collapse12">
-							Mi visa fue aprobada, ¿Por cuanto tiempo estará vigente?
+							Mi visa fue aprobada, ¿Por cuánto tiempo estará vigente?
 						</a>
 					</h4>
 				</div>
@@ -219,7 +231,7 @@
 
 <style>
 /* CSS used here will be applied after bootstrap.css */
-.jumbotron{width:80%;margin-left:10%;max-width: 1200px;margin-left:auto; margin-right:auto;}
+.jumbotron{width:90%;margin-left:10%;max-width: 1200px;margin-left:auto; margin-right:auto;}
 .img-center {margin:0 auto;}
 .dl-horizontal dt{white-space: normal;}
 .omacenter{margin-left:auto; margin-right:auto;}

@@ -7,9 +7,34 @@ class HomeController extends BaseController {
 		return View::make('index');
 	}
 
+	public function index2()
+	{
+		return View::make('index2');
+	}
+
+	public function queNecesitoTramiteVisa()
+	{
+		return View::make('queNecesitoTramiteVisa');
+	}
+
+	public function pasaporte()
+	{
+		return View::make('pasaporte');
+	}
+
+	public function nuestraEmpresa()
+	{
+		return View::make('nuestraEmpresa');
+	}
+	
 	public function faq()
 	{
 		return View::make('faq');
+	}
+
+	public function contacto()
+	{
+		return View::make('contacto');
 	}
 
 	public function iniciarTramite()

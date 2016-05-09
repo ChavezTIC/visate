@@ -7,7 +7,7 @@ Typography
 p {
   font-size: 15px;
   line-height: 29px;
-  color: rgba(28, 54, 83, 0.6);
+  color: rgba(28, 54, 83, 1);
   padding-bottom: 20px; }
 
 h1 {
@@ -31,7 +31,6 @@ h5 {
   color: #3D4351;
   text-transform: uppercase;
   font-weight: 500; }
-
 .btn {
   font-size: 13px;
   border: solid 2px;
@@ -365,11 +364,10 @@ Hero
     padding-top: 26%; }
 
 .navigation {
-  -webkit-transition: all 300ms ease-in-out;
-          transition: all 300ms ease-in-out;
   position: fixed;
   width: 100%;
-  z-index: 999; }
+  z-index: 999;
+  background-color: #272B37;}
 
 .fixed {
   position: fixed;
@@ -676,7 +674,7 @@ Sign up form
   border-radius: 3px;
   width: 80%;
   font-size: 13px; }
-.sign-up .signup-form .form-input-group {
+.sign-up .signup-form .form-input-group  {
   width: 80%;
   height: 55px;
   margin: 0 auto 10px;
@@ -684,6 +682,9 @@ Sign up form
   border: solid 1px #E6E9EA;
   text-align: left;
   position: relative; }
+.sign-up .signup-form .textarea-form  {
+  height: 100px;
+}
   .sign-up .signup-form .form-input-group i {
     color: #FF5274;
     font-size: 14px; }
@@ -698,7 +699,7 @@ Sign up form
     -webkit-transform: translateY(-50%);
         -ms-transform: translateY(-50%);
             transform: translateY(-50%); }
-  .sign-up .signup-form .form-input-group i.fa-lock {
+  .sign-up .signup-form .form-input-group i.fa-pencil-square-o {
     font-size: 18px;
     position: absolute;
     top: 50%;
@@ -714,7 +715,7 @@ Sign up form
         -ms-transform: translateY(-50%);
             transform: translateY(-50%);
     margin-left: 20px; }
-  .sign-up .signup-form .form-input-group input {
+  .sign-up .signup-form .form-input-group input, .sign-up .signup-form .form-input-group textarea {
     padding-left: 68px;
     width: 100%;
     height: 100%;
@@ -763,15 +764,15 @@ footer {
   position: relative; }
   footer p {
     color: #ACB1B4;
-    font-size: 13px; }
+    font-size: 13px;
+    padding-bottom: 0px;}
   footer a {
     color: #fff; }
   footer a:hover {
     color: #FF5274; }
   footer ul.footer-group {
     border-top: solid 1px #4E566C;
-    padding-top: 25px;
-    margin-bottom: 45px; }
+    padding-top: 25px;}
   footer ul.footer-group li {
     display: inline-block; }
   footer ul.footer-group li a {
@@ -793,7 +794,7 @@ footer {
     right: 0;
     width: 40%;
     height: 100%;
-    padding: 142px 0 0 70px; }
+    padding: 0px 0 0 70px; }
     footer .social-share p {
       color: #fff;
       text-transform: uppercase;
@@ -826,7 +827,7 @@ footer {
     footer .social-share a i {
       margin-top: 20px; }
   footer .footer-links {
-    margin: 120px 0 120px 0; }
+    margin: 0px; }
 
 /* ==========================================================================
 Icon font (http://www.elegantthemes.com/blog/freebie-of-the-week/free-line-style-icons)

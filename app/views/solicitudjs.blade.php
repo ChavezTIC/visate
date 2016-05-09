@@ -64,7 +64,7 @@ $(document).ready(function () {
 
 			$('.tab'+(parseInt(tabid)+1)).attr('data-toggle', 'tab');
 			$('.tab'+(parseInt(tabid)+1)).parent().removeClass("disabled");
-			var url = "http://visate.mx/solicitud/update"+tabid;
+			var url = "{{ URL::to('solicitud/update') }}"+tabid;
 
 			$.ajax({
 				type: "POST",
@@ -116,8 +116,10 @@ $(document).ready(function () {
 		$(form+' .form-control').each(function() {
 			if($(this).is(":visible"))
 			{
-				if ($(this).val() === '')
-					isValid = false;
+				if($(this).attr('opcional') !== 'true')
+				{
+					if ($(this).val() === '') isValid = false;
+				}
 			}
 		});
 		return isValid;	
@@ -258,10 +260,15 @@ $(document).ready(function () {
 	$estadia_eu.change(function () {
 
 		$('.estadia_eu').hide();
+		$('.estadia_eu_domicilio').hide();
 
 		if ($estadia_eu.val() == 'Hotel') {
 
 			$('.estadia_eu').show();
+		}
+		if ($estadia_eu.val() == 'Domicilio particular') {
+
+			$('.estadia_eu_domicilio').show();
 		}
 	}).trigger('change');
 

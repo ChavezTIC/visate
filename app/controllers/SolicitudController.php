@@ -13,68 +13,19 @@ class SolicitudController extends \BaseController {
 		}
 		else
 		{
-			$codigoFormulario = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 10)), 0, 10);
-
-			$Principal = new Principal;
-			$Principal->codigo_formulario = $codigoFormulario;
-			$Principal->save();
-			$DatosContacto = new DatosContacto;
-			$DatosContacto->id = $Principal->id;
-			$DatosContacto->datos_principal_fk = $Principal->id;
-			$DatosContacto->save();
-			$Pasaporte = new Pasaporte;
-			$Pasaporte->id = $Principal->id;
-			$Pasaporte->datos_principal_fk = $Principal->id;
-			$Pasaporte->save();
-			$Financiamiento = new Financiamiento;
-			$Financiamiento->id = $Principal->id;
-			$Financiamiento->datos_principal_fk = $Principal->id;
-			$Financiamiento->save();
-			$UltimaVisita = new UltimaVisita;
-			$UltimaVisita->id = $Principal->id;
-			$UltimaVisita->datos_principal_fk = $Principal->id;
-			$UltimaVisita->save();
-			$Visita = new Visita;
-			$Visita->id = $Principal->id;
-			$Visita->datos_principal_fk = $Principal->id;
-			$Visita->save();
-			$Familia = new Familia;
-			$Familia->id = $Principal->id;
-			$Familia->datos_principal_fk = $Principal->id;
-			$Familia->save();
-			$Ocupacion = new Ocupacion;
-			$Ocupacion->id = $Principal->id;
-			$Ocupacion->datos_principal_fk = $Principal->id;
-			$Ocupacion->save();
-			$Seguridad = new Seguridad;
-			$Seguridad->id = $Principal->id;
-			$Seguridad->datos_principal_fk = $Principal->id;
-			$Seguridad->save();
-
-			$codigo = $codigoFormulario;
+			$codigo = $this->crearNuevaSolicitud();
 		}
-
 
 		$sol = DB::table('datos_principal')->where('codigo_formulario', '=', $codigo)->first();
 
 		if($sol)
 		{
-			$solicitud = DB::table('datos_principal')
-			->join('datos_contacto', 'datos_contacto.datos_principal_fk', '=', 'datos_principal.id')
-			->join('pasaporte', 'pasaporte.datos_principal_fk', '=', 'datos_principal.id')
-			->join('financiamiento', 'financiamiento.id', '=', 'datos_principal.id')
-			->join('ultima_visita', 'ultima_visita.id', '=', 'datos_principal.id')
-			->join('familia', 'familia.datos_principal_fk', '=', 'datos_principal.id')
-			->join('ocupacion', 'ocupacion.datos_principal_fk', '=', 'datos_principal.id')
-			->join('visita', 'visita.datos_principal_fk', '=', 'datos_principal.id')
-			->join('seguridad', 'seguridad.datos_principal_fk', '=', 'datos_principal.id')
-			->where('datos_principal.id', $sol->id)
-			->first();
+			$solicitud = $this->consultarSolicitud($sol->id);
 
 			if(($solicitud->nacionalidad!='')||($solicitud->nacionalidad!=null)) $Nacionalidad = $solicitud->nacionalidad;
 			else $Nacionalidad = 'MEXICANA';
 
-			return View::make('solicitud')->with(compact('solicitud','Nacionalidad'));		
+			return View::make('solicitud')->with(compact('solicitud','Nacionalidad'));
 		}
 
 		else
@@ -161,7 +112,6 @@ class SolicitudController extends \BaseController {
 		$solicitud->pais				= $data['pais'];
 		$solicitud->celular				= $data['celular'];
 		$solicitud->telefono			= $data['telefono'];
-		$solicitud->oficina				= $data['oficina'];
 		$solicitud->email				= $data['email'];
 		$solicitud->update();
 	}
@@ -283,8 +233,7 @@ class SolicitudController extends \BaseController {
 		$solicitud->itinerario_viaje		= $data['itinerario_viaje'];
 		if($solicitud->itinerario_viaje=='Sí')
 		{
-			$solicitud->estadia_domicilio		= $data['estadia_domicilio'];
-			$solicitud->estadia_telefono		= $data['estadia_telefono'];
+
 			$solicitud->fecha_viaje				= $data['fecha_viaje'];
 			$solicitud->estadia_tiempo_dias		= $data['estadia_tiempo_dias'];
 			$solicitud->estadia_tiempo_meses	= $data['estadia_tiempo_meses'];
@@ -292,12 +241,10 @@ class SolicitudController extends \BaseController {
 		}
 		else
 		{
-			$solicitud->motivos_viaje			= null;
 			$solicitud->fecha_viaje				= null;
-			$solicitud->estadia_domicilio		= null;
-			$solicitud->estadia_telefono		= null;
 			$solicitud->estadia_tiempo_dias		= null;
 			$solicitud->estadia_tiempo_meses	= null;
+			$solicitud->motivos_viaje			= null;
 		}
 		$solicitud->estadia_eu	= $data['estadia_eu'];
 		if($solicitud->estadia_eu=='Hotel')
@@ -309,6 +256,16 @@ class SolicitudController extends \BaseController {
 		{
 			$solicitud->estadia_hotel_estado	= null;
 			$solicitud->estadia_hotel_ciudad	= null;
+		}
+		if($solicitud->estadia_eu=='Domicilio particular')
+		{
+			$solicitud->estadia_domicilio		= $data['estadia_domicilio'];
+			$solicitud->estadia_telefono		= $data['estadia_telefono'];
+		}
+		else
+		{
+			$solicitud->estadia_domicilio		= null;
+			$solicitud->estadia_telefono		= null;
 		}
 		$solicitud->compania				= $data['compania'];
 		$solicitud->compania_apellidos		= $data['compania_apellidos'];
@@ -430,9 +387,90 @@ class SolicitudController extends \BaseController {
 		$solicitud->update();
 	}
 
+	public function pasaportePostSolicitud() {
+
+		$solicitud = $this->consultarSolicitud(Input::get('id_final'));
+		if($solicitud->numero_pasaporte==null)
+		{
+			$to			= $solicitud->email;
+			$subject	= 'VISATE: Solicitud recibida';
+			$message	= 'Gracias por iniciar tu trámite con nosotros.'."\n\n";
+			$message	.= 'Estamos procesando tu solicitud y nos pondremos en contacto a la brevedad contigo.'."\n\n";
+			$message	.= 'Cualquier duda o comentario puedes mandarla a este correo (contacto@visate.mx)'."\n\n";
+			$message	.= 'Hasta pronto.'."\n\n";
+			$message	.= 'ID de la solicitud: '.Input::get('codigo_final')."\n";
+			$headers	= 'From: contacto@visate.mx' . "\r\n" .
+						'X-Mailer: PHP/' . phpversion();
+			// mail($to, $subject, $message, $headers);
+
+			$to1		= 'contacto@visate.mx';
+			$subject1	= 'VISATE: Nueva solicitud';
+			$message1	= 'Nueva solicitud'."\n\n";
+			$message1	.= 'ID de la solicitud: '.Input::get('codigo_final')."\n";
+			$headers1	= 'From: contacto@visate.mx' . "\r\n" .
+						'X-Mailer: PHP/' . phpversion();
+			// mail($to1, $subject1, $message1, $headers1);
+
+			$solicitud = DB::table('datos_principal')
+			->join('datos_contacto', 'datos_contacto.datos_principal_fk', '=', 'datos_principal.id')
+			->where('datos_principal.id', Input::get('id_final'))
+			->first();
+
+			return View::make('final')->with(compact('solicitud'));	
+		}
+		else
+		{
+			return View::make('pasaportePost')->with(compact('solicitud'));
+		}
+		
+	}
+
+	public function pasaportePostSolicitudValidacion() {
+
+		$pasaporte 			= Input::get('pasaporte');
+		$codigo_solicitud 	= Input::get('codigo_solicitud');
+		$mensaje="El número no coincide";
+
+		$sol = DB::table('datos_principal')->where('codigo_formulario', '=', $codigo_solicitud)->first();
+		$solicitud = $this->consultarSolicitud($sol->id);
+
+		if($solicitud->numero_pasaporte!=$pasaporte)
+		{
+			return View::make('pasaportePost')->with(compact('solicitud','mensaje'));
+		}
+		else
+		{
+			$to			= $solicitud->email;
+			$subject	= 'VISATE: Solicitud recibida';
+			$message	= 'Gracias por iniciar tu trámite con nosotros.'."\n\n";
+			$message	.= 'Estamos procesando tu solicitud y nos pondremos en contacto a la brevedad contigo.'."\n\n";
+			$message	.= 'Cualquier duda o comentario puedes mandarla a este correo (contacto@visate.mx)'."\n\n";
+			$message	.= 'Hasta pronto.'."\n\n";
+			$message	.= 'ID de la solicitud: '.Input::get('codigo_final')."\n";
+			$headers	= 'From: contacto@visate.mx' . "\r\n" .
+						'X-Mailer: PHP/' . phpversion();
+			// mail($to, $subject, $message, $headers);
+
+			$to1		= 'contacto@visate.mx';
+			$subject1	= 'VISATE: Nueva solicitud';
+			$message1	= 'Nueva solicitud'."\n\n";
+			$message1	.= 'ID de la solicitud: '.Input::get('codigo_final')."\n";
+			$headers1	= 'From: contacto@visate.mx' . "\r\n" .
+						'X-Mailer: PHP/' . phpversion();
+			// mail($to1, $subject1, $message1, $headers1);
+
+			$solicitud = DB::table('datos_principal')
+			->join('datos_contacto', 'datos_contacto.datos_principal_fk', '=', 'datos_principal.id')
+			->where('datos_principal.id', $sol->id)
+			->first();
+
+			return View::make('final')->with(compact('solicitud'));	
+		}
+	}
+
 	public function postSolicitud(){
 
-		$to			= 'chavez_048@hotmail.com';
+		$to			= Input::get('email_final');
 		$subject	= 'VISATE: Solicitud recibida';
 		$message	= 'Gracias por iniciar tu trámite con nosotros.'."\n\n";
 		$message	.= 'Estamos procesando tu solicitud y nos pondremos en contacto a la brevedad contigo.'."\n\n";
@@ -451,6 +489,155 @@ class SolicitudController extends \BaseController {
 					'X-Mailer: PHP/' . phpversion();
 		mail($to1, $subject1, $message1, $headers1);
 
-		return var_dump($to);
+		$solicitud = DB::table('datos_principal')
+		->where('datos_principal.id', Input::get('id_final'))
+		->first();
+
+		return View::make('final')->with(compact('solicitud'));
+	}
+
+	public function preguntas(){
+
+		$to			= Input::get('email');
+		$subject	= 'VISATE: Recibimos tus dudas';
+		$message	= 'Gracias por ponerte en contacto con nosotros.'."\n\n";
+		$message	.= 'Nos pondremos en contacto a la brevedad contigo.'."\n\n";
+		$message	.= 'Cualquier otra duda o comentario puedes mandarla a este correo (contacto@visate.mx)'."\n\n";
+		$message	.= 'Hasta pronto.'."\n\n";
+		$headers	= 'From: contacto@visate.mx' . "\r\n" .
+					'X-Mailer: PHP/' . phpversion();
+		mail($to, $subject, $message, $headers);
+
+		$to1		= 'contacto@visate.mx';
+		$subject1	= 'VISATE: Nueva Duda';
+		$message1	= 'Nueva duda'."\n\n";
+		$message1	.= 'Correo: '.Input::get('email')."\n";
+		$message1	.= 'Duda: '.Input::get('texto')."\n";
+		$headers1	= 'From: contacto@visate.mx' . "\r\n" .
+					'X-Mailer: PHP/' . phpversion();
+		mail($to1, $subject1, $message1, $headers1);
+
+		return View::make('index');
+	}
+
+	public function nuevoForm(){
+
+		$codigo = Input::get('id_solicitud');
+
+		$sol = DB::table('datos_principal')->where('codigo_formulario', '=', $codigo)->first();
+
+		if($sol)
+		{
+			$solicitud = DB::table('datos_principal')
+			->join('datos_contacto', 'datos_contacto.datos_principal_fk', '=', 'datos_principal.id')
+			->join('visita', 'visita.datos_principal_fk', '=', 'datos_principal.id')
+			->where('datos_principal.id', $sol->id)
+			->first();
+
+			if(($solicitud->nacionalidad!='')||($solicitud->nacionalidad!=null)) $Nacionalidad = $solicitud->nacionalidad;
+			else $Nacionalidad = 'MEXICANA';
+
+			$codigoNuevaSolicitud = $this->crearNuevaSolicitud();
+
+			$nuevaSol = DB::table('datos_principal')->where('codigo_formulario', '=', $codigoNuevaSolicitud)->first();
+
+			$nuevaSolicitud = $this->consultarSolicitud($nuevaSol->id);
+
+			$nuevaSolicitud->consulado 			= $solicitud->consulado;
+			$nuevaSolicitud->fecha_consulado_1 	= $solicitud->fecha_consulado_1;
+			$nuevaSolicitud->fecha_consulado_2 	= $solicitud->fecha_consulado_2;
+
+			$nuevaSolicitud->direccion 			= $solicitud->direccion;
+			$nuevaSolicitud->codigo_postal 		= $solicitud->codigo_postal;
+			$nuevaSolicitud->estado 			= $solicitud->estado;
+			$nuevaSolicitud->ciudad 			= $solicitud->ciudad;
+			$nuevaSolicitud->pais 				= $solicitud->pais;
+			$nuevaSolicitud->telefono 			= $solicitud->telefono;
+			$nuevaSolicitud->email 				= $solicitud->email;
+
+			$nuevaSolicitud->itinerario_viaje		= $solicitud->itinerario_viaje;
+			$nuevaSolicitud->estadia_domicilio		= $solicitud->estadia_domicilio;
+			$nuevaSolicitud->estadia_telefono		= $solicitud->estadia_telefono;
+			$nuevaSolicitud->fecha_viaje			= $solicitud->fecha_viaje;
+			$nuevaSolicitud->estadia_tiempo_dias	= $solicitud->estadia_tiempo_dias;
+			$nuevaSolicitud->estadia_tiempo_meses	= $solicitud->estadia_tiempo_meses;
+			$nuevaSolicitud->motivos_viaje			= $solicitud->motivos_viaje;
+			$nuevaSolicitud->estadia_eu 			= $solicitud->estadia_eu;
+			$nuevaSolicitud->estadia_hotel_estado	= $solicitud->estadia_hotel_estado;
+			$nuevaSolicitud->estadia_hotel_ciudad	= $solicitud->estadia_hotel_ciudad;
+			$nuevaSolicitud->compania				= $solicitud->compania;
+			$nuevaSolicitud->compania_apellidos		= $solicitud->compania_apellidos;
+			$nuevaSolicitud->compania_nombre		= $solicitud->compania_nombre;
+			$nuevaSolicitud->compania_parentesco	= $solicitud->compania_parentesco;
+
+			$solicitud = $nuevaSolicitud;
+			return View::make('solicitud')->with(compact('solicitud','Nacionalidad'));
+		}
+
+		else
+		{
+			Session::flash('message', 'Solicitud no encontrada');
+			return 'Error';
+		}
+	}
+
+	public function crearNuevaSolicitud() {
+
+		$codigoFormulario = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 10)), 0, 10);
+
+		$Principal = new Principal;
+		$Principal->codigo_formulario = $codigoFormulario;
+		$Principal->save();
+		$DatosContacto = new DatosContacto;
+		$DatosContacto->id = $Principal->id;
+		$DatosContacto->datos_principal_fk = $Principal->id;
+		$DatosContacto->save();
+		$Pasaporte = new Pasaporte;
+		$Pasaporte->id = $Principal->id;
+		$Pasaporte->datos_principal_fk = $Principal->id;
+		$Pasaporte->save();
+		$Financiamiento = new Financiamiento;
+		$Financiamiento->id = $Principal->id;
+		$Financiamiento->datos_principal_fk = $Principal->id;
+		$Financiamiento->save();
+		$UltimaVisita = new UltimaVisita;
+		$UltimaVisita->id = $Principal->id;
+		$UltimaVisita->datos_principal_fk = $Principal->id;
+		$UltimaVisita->save();
+		$Visita = new Visita;
+		$Visita->id = $Principal->id;
+		$Visita->datos_principal_fk = $Principal->id;
+		$Visita->save();
+		$Familia = new Familia;
+		$Familia->id = $Principal->id;
+		$Familia->datos_principal_fk = $Principal->id;
+		$Familia->save();
+		$Ocupacion = new Ocupacion;
+		$Ocupacion->id = $Principal->id;
+		$Ocupacion->datos_principal_fk = $Principal->id;
+		$Ocupacion->save();
+		$Seguridad = new Seguridad;
+		$Seguridad->id = $Principal->id;
+		$Seguridad->datos_principal_fk = $Principal->id;
+		$Seguridad->save();
+
+		return $codigoFormulario;
+	}
+
+	public function consultarSolicitud($id) {
+
+		$solicitud = DB::table('datos_principal')
+		->join('datos_contacto', 'datos_contacto.datos_principal_fk', '=', 'datos_principal.id')
+		->join('pasaporte', 'pasaporte.datos_principal_fk', '=', 'datos_principal.id')
+		->join('financiamiento', 'financiamiento.id', '=', 'datos_principal.id')
+		->join('ultima_visita', 'ultima_visita.id', '=', 'datos_principal.id')
+		->join('familia', 'familia.datos_principal_fk', '=', 'datos_principal.id')
+		->join('ocupacion', 'ocupacion.datos_principal_fk', '=', 'datos_principal.id')
+		->join('visita', 'visita.datos_principal_fk', '=', 'datos_principal.id')
+		->join('seguridad', 'seguridad.datos_principal_fk', '=', 'datos_principal.id')
+		->where('datos_principal.id', $id)
+		->first();
+
+		return $solicitud;
 	}
 }

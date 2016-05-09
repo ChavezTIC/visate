@@ -279,13 +279,6 @@
 								</div>
 							</div>
 
-							<div class="form-group row">
-								{{ Form::label('oficina', 'Teléfono oficina', array('class' => 'col-md-7 control-label')) }}
-								<div class="col-md-6">
-									{{ Form::text('oficina', $solicitud->oficina, array('class' => 'form-control numero', 'maxlength'=>'10')) }}
-								</div>
-							</div>
-
 							<button type="button" class="btn btn-primary boton-siguiente boton-siguiente">Guardar</button>
 
 							{{ Form::close() }}
@@ -717,7 +710,7 @@
 									</div>
 								</div>
 
-								<div class="itinerario_viaje">
+								<div class="estadia_eu_domicilio">
 									<div class="form-group row">
 										{{ Form::label('estadia_domicilio', 'Domicilio del lugar al cual llegará', array('class' => 'col-md-7 control-label')) }}
 										<div class="col-md-6">
@@ -731,7 +724,9 @@
 											{{ Form::text('estadia_telefono', $solicitud->estadia_telefono, array('class' => 'form-control numero', 'maxlength'=>'10'))}}
 										</div>
 									</div>
+								</div>
 
+								<div class="itinerario_viaje">
 									<div class="form-group row">
 										{{ Form::label('fecha_viaje', 'Fecha en la que desea realizar su próxima visita a Estados Unidos', array('class' => 'col-md-7 control-label')) }}
 										<div class="col-md-6">
@@ -840,7 +835,7 @@
 							<div class="form-group row">
 								{{ Form::label('padre_fecha_nacimiento', 'Fecha de nacimiento (opcional)', array('class' => 'col-md-7 control-label')) }}
 								<div class="col-md-6">
-									{{ Form::text('padre_fecha_nacimiento', $solicitud->padre_fecha_nacimiento, array('class' => 'form-control fecha'))}}
+									{{ Form::text('padre_fecha_nacimiento', $solicitud->padre_fecha_nacimiento, array('class' => 'form-control fecha','opcional'=>'true'))}}
 								</div>
 							</div>
 
@@ -891,7 +886,7 @@
 							<div class="form-group row">
 								{{ Form::label('madre_fecha_nacimiento', 'Fecha de nacimiento (opcional)', array('class' => 'col-md-7 control-label')) }}
 								<div class="col-md-6">
-									{{ Form::text('madre_fecha_nacimiento', $solicitud->madre_fecha_nacimiento, array('class' => 'form-control fecha'))}}
+									{{ Form::text('madre_fecha_nacimiento', $solicitud->madre_fecha_nacimiento, array('class' => 'form-control fecha','opcional'=>'true'))}}
 								</div>
 							</div>
 
@@ -1040,7 +1035,7 @@
 								<div class="form-group row">
 									{{ Form::label('ocupacion_codigo_postal', 'Código postal de la institución (Escuela/Empresa)', array('class' => 'col-md-7 control-label')) }}
 									<div class="col-md-6">
-										{{ Form::text('ocupacion_codigo_postal', $solicitud->ocupacion_codigo_postal, array('class' => 'form-control'))}}
+										{{ Form::text('ocupacion_codigo_postal', $solicitud->ocupacion_codigo_postal, array('class' => 'form-control numero'))}}
 									</div>
 								</div>
 
@@ -1116,7 +1111,7 @@
 									<div class="form-group row">
 										{{ Form::label('ocupacion_anterior_codigo_postal', 'Código postal de la institución (Escuela/Empresa)', array('class' => 'col-md-7 control-label')) }}
 										<div class="col-md-6">
-											{{ Form::text('ocupacion_anterior_codigo_postal', $solicitud->ocupacion_anterior_codigo_postal, array('class' => 'form-control'))}}
+											{{ Form::text('ocupacion_anterior_codigo_postal', $solicitud->ocupacion_anterior_codigo_postal, array('class' => 'form-control numero'))}}
 										</div>
 									</div>
 
@@ -1142,7 +1137,7 @@
 									</div>
 
 									<div class="form-group row">
-										{{ Form::label('ocupacion_anterior_periodo', '¿Durante qué periodo (años) estuve en esa ocupación?', array('class' => 'col-md-7 control-label')) }}
+										{{ Form::label('ocupacion_anterior_periodo', '¿Durante qué periodo (años) estuvo en esa ocupación?', array('class' => 'col-md-7 control-label')) }}
 										<div class="col-md-6">
 											{{ Form::text('ocupacion_anterior_periodo', $solicitud->ocupacion_anterior_periodo, array('class' => 'form-control'))}}
 										</div>
@@ -1230,9 +1225,10 @@
 				Ha terminado de responder exitosamente el formulario
 			</div>
 			<div class="modal-footer">
-				{{ Form::open(array('action' => 'SolicitudController@postSolicitud')) }}
+				{{ Form::open(array('action' => 'SolicitudController@pasaportePostSolicitud')) }}
 				<input type="hidden" name='codigo_final' value="{{$solicitud->codigo_formulario}}">
 				<input type="hidden" name='email_final'>
+				<input type="hidden" name='id_final' value="{{$solicitud->id}}">
 				<button type="submit" class="btn btn-info"> Terminar</button>
 				{{ Form::close() }}
 				<button type="button" class="btn btn-default" data-dismiss="modal">Regresar</button>

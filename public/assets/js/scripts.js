@@ -23,12 +23,6 @@ $(document).ready(function() {
 		animation: "slide"
 	});
 
-	/***************** Initiate Fancybox ******************/
-
-	$('.single_image').fancybox({
-		padding: 4,
-	});
-
 	/***************** Tooltips ******************/
     $('[data-toggle="tooltip"]').tooltip();
 

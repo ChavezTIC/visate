@@ -705,30 +705,31 @@
 												</div>
 											</div>
 										@endif
+									@endif
+									@if($solicitud->estadia_eu=='Domicilio particular')
+										@if($solicitud->estadia_domicilio!='')
+											<div class="form-group row">
+												{{ Form::label('estadia_domicilio', 'Domicilio del lugar al cual llegará', array('class' => 'col-md-7 control-label')) }}
+												<div class="col-md-6">
+													<div id="estadia_domicilio" class="col-md-6 col-xs-9">{{$solicitud->estadia_domicilio}}</div>
+													<button class="btn btn-default btnCopiar" type="button" data-clipboard-text="{{$solicitud->estadia_domicilio}}"><span class="glyphicon glyphicon-copy"></span></button>
+												</div>
+											</div>
+										@endif
 
+										@if($solicitud->estadia_telefono!='')
+											<div class="form-group row">
+												{{ Form::label('estadia_telefono', 'Teléfono de contacto del lugar al cual llegará', array('class' => 'col-md-7 control-label')) }}
+												<div class="col-md-6">
+													<div id="estadia_telefono" class="col-md-6 col-xs-9">{{$solicitud->estadia_telefono}}</div>
+													<button class="btn btn-default btnCopiar" type="button" data-clipboard-text="{{$solicitud->estadia_telefono}}"><span class="glyphicon glyphicon-copy"></span></button>
+												</div>
+											</div>
+										@endif
 									@endif
 								@endif
 
 								@if($solicitud->itinerario_viaje=='Sí')
-									@if($solicitud->estadia_domicilio!='')
-										<div class="form-group row">
-											{{ Form::label('estadia_domicilio', 'Domicilio del lugar al cual llegará', array('class' => 'col-md-7 control-label')) }}
-											<div class="col-md-6">
-												<div id="estadia_domicilio" class="col-md-6 col-xs-9">{{$solicitud->estadia_domicilio}}</div>
-												<button class="btn btn-default btnCopiar" type="button" data-clipboard-text="{{$solicitud->estadia_domicilio}}"><span class="glyphicon glyphicon-copy"></span></button>
-											</div>
-										</div>
-									@endif
-
-									@if($solicitud->estadia_telefono!='')
-										<div class="form-group row">
-											{{ Form::label('estadia_telefono', 'Teléfono de contacto del lugar al cual llegará', array('class' => 'col-md-7 control-label')) }}
-											<div class="col-md-6">
-												<div id="estadia_telefono" class="col-md-6 col-xs-9">{{$solicitud->estadia_telefono}}</div>
-												<button class="btn btn-default btnCopiar" type="button" data-clipboard-text="{{$solicitud->estadia_telefono}}"><span class="glyphicon glyphicon-copy"></span></button>
-											</div>
-										</div>
-									@endif
 
 									@if($solicitud->fecha_viaje!='')
 										<div class="form-group row">
@@ -1013,7 +1014,7 @@
 										<div class="form-group row">
 											{{ Form::label('ocupacion_telefono', 'Teléfono de la institución (Escuela/Empresa)', array('class' => 'col-md-7 control-label')) }}
 											<div class="col-md-6">
-												<div id="ocupacion_pais" class="col-md-6 col-xs-9">{{$solicitud->ocupacion_pais}}</div>
+												<div id="ocupacion_pais" class="col-md-6 col-xs-9">{{$solicitud->ocupacion_telefono}}</div>
 												<button class="btn btn-default btnCopiar" type="button" data-clipboard-text="{{$solicitud->ocupacion_pais}}"><span class="glyphicon glyphicon-copy"></span></button>
 											</div>
 										</div>
@@ -1023,7 +1024,7 @@
 										<div class="form-group row">
 											{{ Form::label('ocupacion_descripcion', '¿Qué hace en su ocupación?', array('class' => 'col-md-7 control-label')) }}
 											<div class="col-md-6">
-												<div id="ocupacion_pais" class="col-md-6 col-xs-9">{{$solicitud->ocupacion_pais}}</div>
+												<div id="ocupacion_pais" class="col-md-6 col-xs-9">{{$solicitud->ocupacion_descripcion}}</div>
 												<button class="btn btn-default btnCopiar" type="button" data-clipboard-text="{{$solicitud->ocupacion_pais}}"><span class="glyphicon glyphicon-copy"></span></button>
 											</div>
 										</div>
@@ -1105,6 +1106,16 @@
 													<div class="col-md-6">
 														<div id="ocupacion_anterior_telefono" class="col-md-6 col-xs-9">{{$solicitud->ocupacion_anterior_telefono}}</div>
 														<button class="btn btn-default btnCopiar" type="button" data-clipboard-text="{{$solicitud->ocupacion_anterior_telefono}}"><span class="glyphicon glyphicon-copy"></span></button>
+													</div>
+												</div>
+											@endif
+
+											@if($solicitud->ocupacion_anterior_periodo!='')
+												<div class="form-group row">
+													{{ Form::label('ocupacion_anterior_periodo', '¿Durante qué periodo (años) estuvo en esa ocupación?', array('class' => 'col-md-7 control-label')) }}
+													<div class="col-md-6">
+														<div id="ocupacion_anterior_periodo" class="col-md-6 col-xs-9">{{$solicitud->ocupacion_anterior_periodo}}</div>
+														<button class="btn btn-default btnCopiar" type="button" data-clipboard-text="{{$solicitud->ocupacion_anterior_periodo}}"><span class="glyphicon glyphicon-copy"></span></button>
 													</div>
 												</div>
 											@endif

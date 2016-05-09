@@ -27,6 +27,7 @@
 			<th>Nombre del solicitante</th>
 			<th>Pasaporte</th>
 			<th>Opciones</th>
+			<th>Fecha</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -43,6 +44,7 @@
 				<a class="btn btn-default" role="button" href="{{ URL::to('solicitud/'. $solicitud->codigo_formulario ) }}"><span class="glyphicon glyphicon-edit"></span></a>
 				{{ Form::close() }}
 			</td>
+			<td>{{$solicitud->created_at}}</td>
 		</tr>
 		@endforeach
 	</tbody>

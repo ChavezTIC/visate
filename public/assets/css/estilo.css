@@ -11,6 +11,27 @@ textarea {
 	color: #000000;
 }
 
+.espacio_negro {
+	width: 100%;
+	height: 150px;
+	background-color: #232731;
+}
+
+.form-input-group input, .form-input-group textarea{
+	color: #000;
+	font-weight: 600;
+}
+
+.lista-requisitos ul{
+	padding: 20px;
+}
+
+.lista-requisitos ul li{
+	list-style: circle;
+}
+
+
+
 @media (max-width: 1024px){
 
 	h1 {

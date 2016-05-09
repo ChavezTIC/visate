@@ -26,20 +26,39 @@ Route::delete('admin/delete/{id}', 'AdminController@destroy')->before('auth');
 
 Route::get('/', 'HomeController@index');
 
+Route::get('queNecesitoTramiteVisa', 'HomeController@queNecesitoTramiteVisa');
+
+Route::get('pasaporte', 'HomeController@pasaporte');
+
+Route::get('nuestraEmpresa', 'HomeController@nuestraEmpresa');
+
 Route::get('FAQ', 'HomeController@faq');
+
+Route::get('contacto', 'HomeController@contacto');
 
 Route::get('toForm', 'HomeController@toForm');
 
 Route::get('iniciarTramite', 'HomeController@iniciarTramite');
+
+Route::get('V5', 'HomeController@index2');
 
 
 Route::get('solicitud', 'SolicitudController@index');
 
 Route::post('solicitud', 'SolicitudController@index');
 
-Route::get('final', 'SolicitudController@postSolicitud');
+/*Route::get('final', 'SolicitudController@postSolicitud');*/
+
+
+Route::post('pasaporteFinal', 'SolicitudController@pasaportePostSolicitud');
+
+Route::post('pasaporteFinalValidacion', 'SolicitudController@pasaportePostSolicitudValidacion');
 
 Route::post('final', 'SolicitudController@postSolicitud');
+
+Route::post('preguntas', 'SolicitudController@preguntas');
+
+Route::post('nuevoForm', 'SolicitudController@nuevoForm');
 
 
 Route::post('solicitud/update1', 'SolicitudController@updatePrincipal');

@@ -11,6 +11,16 @@
 <body>
 
 	Formulario Recibido
+	<br>
+	Nombre: {{$solicitud->nombre.' '.$solicitud->apellidos}}
+	<br>
+	Email: {{$solicitud->email}}
+	<br>
+
+	{{ Form::open(array('action' => 'SolicitudController@nuevoForm')) }}
+	<input type="hidden" name='id_solicitud' value="{{$solicitud->codigo_formulario}}">
+	<button type="submit" class="btn btn-info">Llenar formulario de un familiar</button>
+	{{ Form::close() }}
 
 	{{ HTML::script('assets/js/jquery-2.1.3.min.js') }}
 	{{ HTML::script('assets/js/bootstrap.min.js') }}
