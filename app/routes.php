@@ -42,6 +42,11 @@ Route::get('iniciarTramite', 'HomeController@iniciarTramite');
 
 Route::get('V5', 'HomeController@index2');
 
+Route::get('input', 'HomeController@input');
+
+Route::post('input/nuevo', 'HomeController@inputNuevo');
+
+Route::get('landing{id}', 'HomeController@pruebaLanding');
 
 Route::get('solicitud', 'SolicitudController@index');
 

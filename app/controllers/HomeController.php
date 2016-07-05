@@ -12,6 +12,27 @@ class HomeController extends BaseController {
 		return View::make('index2');
 	}
 
+	public function input()
+	{
+		return View::make('input');
+	}
+
+	public function pruebaLanding($id)
+	{
+		$datos = Landing::find($id);
+		return View::make('landing')
+		->with(compact('datos'));
+	}
+
+	public function inputNuevo()
+	{
+		$landing = New Landing;
+		$landing->campo1 = Input::get('texto');
+		$landing->save();
+		
+		return Redirect::to('landing'.$landing->id);
+	}
+
 	public function queNecesitoTramiteVisa()
 	{
 		return View::make('queNecesitoTramiteVisa');
